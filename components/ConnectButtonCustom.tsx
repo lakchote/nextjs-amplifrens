@@ -18,13 +18,13 @@ export default function ConnectButtonCustom() {
 
   return (
     <ConnectKitButton.Custom>
-      {({ isConnected, show , truncatedAddress, ensName }) => {
+      {({ isConnected, show, truncatedAddress, ensName }) => {
         return (
           <button
             className={
               isConnected
-                ? "btn btn-neutral btn-md hover:bg-accent-focus hover:border-white hover:text-white"
-                : "btn btn-primary btn-md hover:bg-accent-focus hover:text-white hover:border-white"
+                ? "btn btn-neutral btn-sm md:btn-md hover:bg-accent-focus hover:border-white hover:text-white"
+                : "btn btn-neutral btn-sm md:btn-md hover:bg-accent-focus hover:text-white hover:border-white"
             }
             onClick={show}
           >
