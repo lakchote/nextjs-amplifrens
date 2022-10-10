@@ -1,4 +1,37 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+1. Header
+    * Connect account
+    * Put logo to left
+    * Tailwind
+2. Home
+    * Show header
+    * Fetch latest news by users in desc order
+3. Profile page
+4. Leaderboard
+5. Top contributions
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## Getting Started
 
