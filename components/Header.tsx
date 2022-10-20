@@ -1,11 +1,11 @@
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 import Link from "next/link";
-import ConnectButtonCustom from "./ConnectButtonCustom";
 
 export default function Header() {
   return (
     <nav className="navbar py-4 lg:py-8 container mx-auto">
       <div className="navbar-start">
-      <div className="dropdown">
+        <div className="dropdown">
           <label tabIndex={0} className="btn btn-ghost lg:hidden">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -31,19 +31,19 @@ export default function Header() {
           </ul>
         </div>
         <Link href="/">
-          <a className="lg:text-3xl font-extrabold px-1">AmpliFrens</a>
+          <a className="lg:text-3xl text-xl font-bold px-1 lg:px-2 text-primary">AmpliFrens</a>
         </Link>
       </div>
       <div className="navbar-end lg:flex">
         <div className="hidden lg:flex">
           <Link href="/top-contributions">
-            <a className="px-2 text-lg hover:text-accent">Top Contributions</a>
+            <a className="px-2 text-md hover:text-primary">Top Contributions</a>
           </Link>
           <Link href="/leaderboard">
-            <a className="px-2 text-lg hover:text-accent">Leaderboard</a>
+            <a className="px-2 text-md hover:text-primary">Leaderboard</a>
           </Link>
         </div>
-        <ConnectButtonCustom />
+        <ConnectButton accountStatus="avatar" showBalance={false} chainStatus="none" />
       </div>
     </nav>
   );
