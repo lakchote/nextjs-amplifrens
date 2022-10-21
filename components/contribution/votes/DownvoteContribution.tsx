@@ -1,24 +1,22 @@
 import { faThumbsDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useAccount, useContractWrite, usePrepareContractWrite, useWaitForTransaction } from "wagmi";
-import { useVoteContext } from "../pages";
-import addressesJson from "../constants/addresses.json";
-import facadeAbi from "../constants/abi.json";
+import { useVoteContext } from "../../../pages";
+import addressesJson from "../../../constants/addresses.json";
+import facadeAbi from "../../../constants/abi.json";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
-import { useDebounce } from "usehooks-ts";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 export default function DownvoteContribution({ contributionId }: { contributionId: number }) {
   const { downvoted } = useVoteContext();
   const [clicked, setClicked] = useState(false);
-  const debouncedContributionId = useDebounce(clicked, 100);
   const { config: downvoteConfig } = usePrepareContractWrite({
     addressOrName: addressesJson[process.env.NEXT_PUBLIC_CHAIN_ID as keyof typeof addressesJson].address,
     contractInterface: facadeAbi,
     functionName: "downvoteContribution",
     args: [contributionId],
-    enabled: debouncedContributionId,
+    enabled: clicked,
   });
   const { write: downvote, data, isError, error } = useContractWrite(downvoteConfig);
 
@@ -36,7 +34,7 @@ export default function DownvoteContribution({ contributionId }: { contributionI
     isSuccess
       ? toast.success("Dislike successful")
       : isLoading
-      ? toast.info("Sending dislike")
+      ? toast.info("Disliking contribution...")
       : isError && toast.error(`${"Error : " + error?.message}`);
   }, [clicked, isSuccess, isLoading, isError, downvote, error?.message]);
 
@@ -54,8 +52,7 @@ export default function DownvoteContribution({ contributionId }: { contributionI
       }
       onClick={() => handleVote()}
     >
-      <FontAwesomeIcon icon={faThumbsDown} />
-      Dislike
+      <FontAwesomeIcon icon={faThumbsDown} /> Dislike
     </a>
   );
 }

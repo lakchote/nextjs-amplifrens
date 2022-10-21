@@ -1,3 +1,3 @@
-const contributionCategories = ["NFT", "Article", "DeFi", "Security", "Thread", "GameFi", "Video", "Misc"];
+const contributionCategories = ["NFT", "DeFi", "GameFi", "Thread", "Article", "Security", "Video", "Misc"];
 
 export default contributionCategories;

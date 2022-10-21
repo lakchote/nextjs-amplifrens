@@ -1,6 +1,4 @@
-import "../styles/globals.css";
 import type { AppProps } from "next/app";
-import "@fortawesome/fontawesome-svg-core/styles.css";
 import Header from "../components/Header";
 import { darkTheme, getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
 import { WagmiConfig, createClient, chain, configureChains } from "wagmi";
@@ -8,9 +6,11 @@ import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import { infuraProvider } from "wagmi/providers/infura";
 import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
-import "@rainbow-me/rainbowkit/styles.css";
-import "react-toastify/dist/ReactToastify.min.css";
 import { ToastContainer } from "react-toastify";
+import "../styles/globals.css";
+import "@rainbow-me/rainbowkit/styles.css";
+import "@fortawesome/fontawesome-svg-core/styles.css";
+import "react-toastify/dist/ReactToastify.min.css";
 
 config.autoAddCss = false;
 
@@ -58,7 +58,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       <ApolloProvider client={graphqlClient}>
         <RainbowKitProvider chains={chains} theme={darkTheme({ accentColor: "#828DF8" })}>
           <Header />
-          <ToastContainer />
+          <ToastContainer theme="dark" />
           <Component {...pageProps} />
         </RainbowKitProvider>
       </ApolloProvider>

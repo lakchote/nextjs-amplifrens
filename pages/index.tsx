@@ -1,16 +1,16 @@
 import type { NextPage } from "next";
-import Head from "next/head";
-import Link from "next/link";
+import { useQuery } from "@apollo/client";
+import { ContributionInterface, ContributionVotesInterface } from "../interfaces/contribution";
+import { createContext, useContext, useEffect, useState } from "react";
+import { useAccount } from "wagmi";
 import {
   GET_CONTRIBUTIONS,
   GET_USER_UPVOTED_CONTRIBUTIONS,
   GET_USER_DOWNVOTED_CONTRIBUTIONS,
 } from "../constants/subgraphQueries";
-import { useQuery } from "@apollo/client";
-import { ContributionInterface, ContributionVotesInterface } from "../interfaces/contribution";
-import Contribution from "../components/Contribution";
-import { createContext, useContext, useEffect, useState } from "react";
-import { useAccount } from "wagmi";
+import Contribution from "../components/contribution/ContributionList";
+import CreateContribution from "../components/contribution/modals/CreateContribution";
+import Head from "next/head";
 
 const VoteEventsContext = createContext<{ upvoted: Number[]; downvoted: Number[] }>({ upvoted: [], downvoted: [] });
 
@@ -40,8 +40,7 @@ const Home: NextPage = () => {
 
   startPollUpvotes(3000);
   startPollDownvotes(3000);
-  // TODO
-  // startPollContributions(500);
+  startPollContributions(1000);
 
   useEffect(() => {
     if (userUpvotedContributions) {
@@ -80,16 +79,9 @@ const Home: NextPage = () => {
         </div>
       ) : (
         <main className="container mt-8 lg:mt-10">
-          <Link href="#" className="">
-            <div className="flex justify-center">
-              <a
-                className="flex btn btn-primary btn-sm lg:btn-md rounded-md items-center text-center hover:border-white border-transparent border-2 text-sm lg:text-md"
-                href="#"
-              >
-                New contribution
-              </a>
-            </div>
-          </Link>
+          <div className="flex justify-center">
+            <CreateContribution />
+          </div>
           {activeContributions.contributions.map((activeContribution: ContributionInterface) => {
             return (
               <VoteEventsContext.Provider

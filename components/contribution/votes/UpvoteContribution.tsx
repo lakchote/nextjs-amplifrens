@@ -1,24 +1,22 @@
 import { faThumbsUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { usePrepareContractWrite, useContractWrite, useAccount, useWaitForTransaction } from "wagmi";
-import { useVoteContext } from "../pages";
-import addressesJson from "../constants/addresses.json";
-import facadeAbi from "../constants/abi.json";
+import { useVoteContext } from "../../../pages";
+import addressesJson from "../../../constants/addresses.json";
+import facadeAbi from "../../../constants/abi.json";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
-import { useDebounce } from "usehooks-ts";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 export default function UpvoteContribution({ contributionId }: { contributionId: number }) {
   const { upvoted } = useVoteContext();
   const [clicked, setClicked] = useState(false);
-  const debouncedContributionId = useDebounce(clicked, 100);
   const { config: upvoteConfig } = usePrepareContractWrite({
     addressOrName: addressesJson[process.env.NEXT_PUBLIC_CHAIN_ID as keyof typeof addressesJson].address,
     contractInterface: facadeAbi,
     functionName: "upvoteContribution",
     args: [contributionId],
-    enabled: debouncedContributionId,
+    enabled: clicked,
   });
 
   const { write: upvote, data, isError, error } = useContractWrite(upvoteConfig);
@@ -36,7 +34,7 @@ export default function UpvoteContribution({ contributionId }: { contributionId:
     isSuccess
       ? toast.success("Like successful")
       : isLoading
-      ? toast.info("Sending like")
+      ? toast.info("Liking contribution...")
       : isError && toast.error(`${"Error : " + error?.message}`);
   }, [clicked, error?.message, isError, isLoading, isSuccess, upvote]);
 

@@ -1,11 +1,14 @@
 import { faThumbsUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import contributionCategories from "../constants/categoryMapping";
-import { ContributionInterface } from "../interfaces/contribution";
-import UpvoteContribution from "./UpvoteContribution";
-import DownvoteContribution from "./DownvoteContribution";
+import { ContributionInterface } from "../../interfaces/contribution";
+import { useAccount } from "wagmi";
+import UpvoteContribution from "./votes/UpvoteContribution";
+import DownvoteContribution from "./votes/DownvoteContribution";
+import UpdateContribution from "./modals/UpdateContribution";
+import DeleteContribution from "./modals/DeleteContribution";
+import contributionCategories from "../../constants/categoryMapping";
 
-export default function Contribution({ contribution }: { contribution: ContributionInterface }) {
+export default function ContributionList({ contribution }: { contribution: ContributionInterface }) {
   const truncateStr = (fullStr: string, strLen: number) => {
     if (fullStr.length <= strLen) return fullStr;
 
@@ -17,6 +20,7 @@ export default function Contribution({ contribution }: { contribution: Contribut
 
     return fullStr.slice(0, frontChars) + separator + fullStr.slice(fullStr.length - backChars);
   };
+  const { address } = useAccount();
 
   return (
     <div className="lg:w-full mb-10">
@@ -42,8 +46,17 @@ export default function Contribution({ contribution }: { contribution: Contribut
         </div>
         <div className="divider"></div>
         <div className="flex justify-around text-sm">
-          <UpvoteContribution contributionId={contribution.contributionId} />
-          <DownvoteContribution contributionId={contribution.contributionId} />
+          {!address || contribution.from.toUpperCase() !== address.toUpperCase() ? (
+            <>
+              <UpvoteContribution contributionId={contribution.contributionId} />
+              <DownvoteContribution contributionId={contribution.contributionId} />
+            </>
+          ) : (
+            <>
+              <UpdateContribution contributionId={contribution.contributionId} />
+              <DeleteContribution contributionId={contribution.contributionId} />
+            </>
+          )}
         </div>
       </div>
     </div>
