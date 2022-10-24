@@ -1,8 +1,80 @@
 import type { NextPage } from "next";
+import { useQuery } from "@apollo/client";
+import { ContributionInterface, ContributionVotesInterface } from "../interfaces/contribution";
+import { createContext, useContext, useEffect, useState } from "react";
+import { useAccount } from "wagmi";
+import {
+  GET_CONTRIBUTIONS,
+  GET_USER_UPVOTED_CONTRIBUTIONS,
+  GET_USER_DOWNVOTED_CONTRIBUTIONS,
+} from "../constants/subgraphQueries";
+import Contribution from "../components/contribution/ContributionList";
+import CreateContribution from "../components/contribution/modals/CreateContribution";
 import Head from "next/head";
-import Link from "next/link";
+
+const VoteEventsContext = createContext<{ upvoted: Number[]; downvoted: Number[] }>({ upvoted: [], downvoted: [] });
 
 const Home: NextPage = () => {
+  const [upvotedEventContributionIds, setUpvotedEventContributionIds] = useState<Number[]>([]);
+  const [downvotedEventContributionIds, setDownvotedEventContributionIds] = useState<Number[]>([]);
+  const { address } = useAccount();
+  const {
+    loading: loadingContributions,
+    error: errorContributions,
+    data: activeContributions,
+    variables: queryPaginationOptions,
+    refetch,
+    startPolling: startPollContributions,
+    stopPolling: stopPollContributions,
+  } = useQuery(GET_CONTRIBUTIONS, {
+    variables: {
+      first: 5,
+      skip: 0,
+    },
+  });
+  const { data: userUpvotedContributions, startPolling: startPollUpvotes } = useQuery(GET_USER_UPVOTED_CONTRIBUTIONS, {
+    variables: {
+      address: address ?? "",
+    },
+  });
+  const { data: userDownvotedContributions, startPolling: startPollDownvotes } = useQuery(
+    GET_USER_DOWNVOTED_CONTRIBUTIONS,
+    {
+      variables: {
+        address: address ?? "",
+      },
+    }
+  );
+
+  startPollUpvotes(3000);
+  startPollDownvotes(3000);
+  startPollContributions(1000);
+
+  useEffect(() => {
+    if (userUpvotedContributions) {
+      setUpvotedEventContributionIds(
+        userUpvotedContributions.contributionUpvoteds.map(
+          (contribution: ContributionVotesInterface) => contribution.contributionId
+        )
+      );
+    }
+    if (userDownvotedContributions) {
+      setDownvotedEventContributionIds(
+        userDownvotedContributions.contributionDownvoteds.map(
+          (contribution: ContributionVotesInterface) => contribution.contributionId
+        )
+      );
+    }
+  }, [userUpvotedContributions, userDownvotedContributions]);
+
+  const handlePagination = () => {
+    stopPollContributions();
+    refetch({
+      first: queryPaginationOptions ? queryPaginationOptions.first + 5 : 5,
+    });
+    startPollContributions(1000);
+  };
+
   return (
     <div>
       <Head>
@@ -13,38 +85,43 @@ const Home: NextPage = () => {
         />
         <link rel="icon" href="/favicon.svg" />
       </Head>
-      <main className="container mt-6 lg:mt-10">
-        <Link href="#">
-          <a className="block text-center text-primary hover:text-accent text-sm lg:text-lg">
-            Post a contribution
-          </a>
-        </Link>
 
-        <div className="lg:w-full mb-10">
-          <div className="bg-base-200 lg:w-1/2 mx-2 mt-6 p-6 lg:mt-8 lg:p-8 rounded-lg lg:mx-auto">
-            <div className="flex">
-              <div className="text-secondary mr-2 px-2.5 flex items-center basis-44 justify-center font-light">DeFi</div>
-              <div>Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur</div>
-            </div>
-            <div className="flex justify-between text-xs mt-6">
-              <div>
-                XXX points by <a href="#" className="font-medium hover:text-accent">0x10aded</a>
-              </div>
-              <div>
-                <a href="#" className="text-primary hover:text-accent">
-                  Upvote
-                </a>
-                <span> | </span>
-                <a href="#" className="text-primary hover:text-accent">
-                  Downvote
-                </a>
-              </div>
-            </div>
-          </div>
+      {loadingContributions ? (
+        <div className="container mt-8 lg:mt-10 text-center text-accent">Loading...</div>
+      ) : errorContributions ? (
+        <div className="container mt-8 lg:mt-10 text-center text-accent">
+          There was an error.
+          <br /> Please reach out on Discord or Twitter.
         </div>
-      </main>
+      ) : (
+        <main className="container mt-8 lg:mt-10">
+          <div className="flex justify-center">
+            <CreateContribution />
+          </div>
+          {activeContributions.contributions.map((activeContribution: ContributionInterface) => {
+            return (
+              <VoteEventsContext.Provider
+                key={activeContribution.timestamp}
+                value={{ upvoted: upvotedEventContributionIds, downvoted: downvotedEventContributionIds }}
+              >
+                <Contribution contribution={activeContribution} />
+              </VoteEventsContext.Provider>
+            );
+          })}
+          <div className="flex justify-center">
+            {activeContributions.contributions.length % 5 === 0 ? (
+              <button className="btn btn-accent mb-5" onClick={handlePagination}>
+                More
+              </button>
+            ) : (
+              ""
+            )}
+          </div>
+        </main>
+      )}
     </div>
   );
 };
 
 export default Home;
+export const useVoteContext = () => useContext(VoteEventsContext);
