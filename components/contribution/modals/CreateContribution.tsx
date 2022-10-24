@@ -70,7 +70,7 @@ export default function CreateContribution() {
               </label>
               <select
                 className="mb-4 select select-bordered w-full max-w-lg focus:select-primary"
-                onChange={(e) => setCategory(e.target.value)}
+                onChange={(e) => setCategory(parseInt(e.target.value))}
               >
                 {contributionCategories.map((category, index) => (
                   <option key={category} value={index}>
