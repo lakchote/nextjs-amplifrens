@@ -22,8 +22,16 @@ const Home: NextPage = () => {
     loading: loadingContributions,
     error: errorContributions,
     data: activeContributions,
+    variables: queryPaginationOptions,
+    refetch,
     startPolling: startPollContributions,
-  } = useQuery(GET_CONTRIBUTIONS);
+    stopPolling: stopPollContributions,
+  } = useQuery(GET_CONTRIBUTIONS, {
+    variables: {
+      first: 5,
+      skip: 0,
+    },
+  });
   const { data: userUpvotedContributions, startPolling: startPollUpvotes } = useQuery(GET_USER_UPVOTED_CONTRIBUTIONS, {
     variables: {
       address: address ?? "",
@@ -59,6 +67,14 @@ const Home: NextPage = () => {
     }
   }, [userUpvotedContributions, userDownvotedContributions]);
 
+  const handlePagination = () => {
+    stopPollContributions();
+    refetch({
+      first: queryPaginationOptions ? queryPaginationOptions.first + 5 : 5,
+    });
+    startPollContributions(1000);
+  };
+
   return (
     <div>
       <Head>
@@ -92,6 +108,15 @@ const Home: NextPage = () => {
               </VoteEventsContext.Provider>
             );
           })}
+          <div className="flex justify-center">
+            {activeContributions.contributions.length % 5 === 0 ? (
+              <button className="btn btn-accent mb-5" onClick={handlePagination}>
+                More
+              </button>
+            ) : (
+              ""
+            )}
+          </div>
         </main>
       )}
     </div>
