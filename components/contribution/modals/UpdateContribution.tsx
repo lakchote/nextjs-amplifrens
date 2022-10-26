@@ -64,40 +64,39 @@ export default function UpdateContribution({ contributionId }: { contributionId:
           </label>
           <h3 className="text-xl text-primary">Update contribution</h3>
           <form className="form-control mt-6">
-            <div className="justify-end items-center">
-              <label htmlFor="contribution-update-category" className="max-w-lg font-semibold">
-                Category
-              </label>
-              <select
-                className="mb-4 select select-bordered w-full max-w-lg focus:select-primary"
-                onChange={(e) => setCategory(parseInt(e.target.value))}
-              >
-                {contributionCategories.map((category, index) => (
-                  <option key={category} value={index}>
-                    {category}
-                  </option>
-                ))}
-              </select>
-              <label htmlFor="contribution-update-title" className="font-semibold">
-                Title
-              </label>
-              <input
-                id="contribution-update-title"
-                className="mb-4 input input-bordered w-full max-w-lg focus:input-primary"
-                onChange={(e) => setTitle(e.target.value)}
-              />
-              <label htmlFor="contribution-update-url" className="font-semibold">
-                URL
-              </label>
-              <input
-                id="contribution-update-url"
-                className="input input-bordered w-full max-w-lg focus:input-primary mb-5"
-                onChange={(e) => setUrl(e.target.value)}
-              />
-              <button className="btn btn-primary" onClick={(e) => handleUpdate(e)}>
-                Update
-              </button>
-            </div>
+            <label htmlFor="contribution-update-category" className="label max-w-lg font-semibold">
+              <span className="label-text">Category</span>
+            </label>
+            <select
+              id="contribution-update-category"
+              className="mb-4 select select-bordered w-full max-w-lg focus:select-primary"
+              onChange={(e) => setCategory(parseInt(e.target.value))}
+            >
+              {contributionCategories.map((category, index) => (
+                <option key={category} value={index}>
+                  {category}
+                </option>
+              ))}
+            </select>
+            <label htmlFor="contribution-update-title" className="label font-semibold">
+              <span className="label-text">Title</span>
+            </label>
+            <input
+              id="contribution-update-title"
+              className="mb-4 input input-bordered w-full max-w-lg focus:input-primary"
+              onChange={(e) => setTitle(e.target.value)}
+            />
+            <label htmlFor="contribution-update-url" className="label font-semibold">
+              <span className="label-text">URL</span>
+            </label>
+            <input
+              id="contribution-update-url"
+              className="input input-bordered w-full max-w-lg focus:input-primary mb-5"
+              onChange={(e) => setUrl(e.target.value)}
+            />
+            <button className="btn btn-primary" onClick={(e) => handleUpdate(e)}>
+              Update
+            </button>
           </form>
         </div>
       </div>
