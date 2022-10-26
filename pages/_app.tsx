@@ -11,6 +11,7 @@ import "../styles/globals.css";
 import "@rainbow-me/rainbowkit/styles.css";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import "react-toastify/dist/ReactToastify.min.css";
+import { createContext, Dispatch, SetStateAction, useContext, useState } from "react";
 
 config.autoAddCss = false;
 
@@ -52,14 +53,26 @@ const wagmiClient = createClient({
   provider,
 });
 
+const ProfileContext = createContext<{
+  profileUpdated: string | null;
+  setProfileUsername: Dispatch<SetStateAction<string | null>>;
+}>({
+  profileUpdated: null,
+  setProfileUsername: () => undefined,
+});
+
 function MyApp({ Component, pageProps }: AppProps) {
+  const [profileUpdated, setProfileUsername] = useState<string | null>(null);
+
   return (
     <WagmiConfig client={wagmiClient}>
       <ApolloProvider client={graphqlClient}>
         <RainbowKitProvider chains={chains} theme={darkTheme({ accentColor: "#828DF8" })}>
-          <Header />
-          <ToastContainer theme="dark" />
-          <Component {...pageProps} />
+          <ProfileContext.Provider value={{ profileUpdated: profileUpdated, setProfileUsername }}>
+            <Header />
+            <ToastContainer theme="dark" />
+            <Component {...pageProps} />
+          </ProfileContext.Provider>
         </RainbowKitProvider>
       </ApolloProvider>
     </WagmiConfig>
@@ -67,3 +80,4 @@ function MyApp({ Component, pageProps }: AppProps) {
 }
 
 export default MyApp;
+export const useProfileContext = () => useContext(ProfileContext);
