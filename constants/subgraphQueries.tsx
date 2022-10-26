@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
 export const GET_CONTRIBUTIONS = gql`
-  query GetActiveContributions($first: Int, $skip: Int) {
+  query GetActiveContributions($first: Int!, $skip: Int!) {
     contributions(
       first: $first
       skip: $skip
@@ -34,6 +34,22 @@ export const GET_USER_DOWNVOTED_CONTRIBUTIONS = gql`
   query UserDownvotedContributions($address: Bytes!) {
     contributionDownvoteds(where: { from: $address }) {
       contributionId
+    }
+  }
+`;
+
+export const GET_PROFILE_ADDRESS = gql`
+  query GetProfileAddress($username: String!) {
+    profiles(where: { username: $username }) {
+      address
+    }
+  }
+`;
+
+export const GET_SBT_COUNT = gql`
+  query GetSBTCount($address: String!) {
+    sbtleaderboards(where: { id: $address }) {
+      topContributionsCount
     }
   }
 `;

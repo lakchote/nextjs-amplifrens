@@ -7,19 +7,10 @@ import DownvoteContribution from "./votes/DownvoteContribution";
 import UpdateContribution from "./modals/UpdateContribution";
 import DeleteContribution from "./modals/DeleteContribution";
 import contributionCategories from "../../constants/categoryMapping";
+import truncateStr from "../../utils/truncate";
+import Link from "next/link";
 
 export default function ContributionList({ contribution }: { contribution: ContributionInterface }) {
-  const truncateStr = (fullStr: string, strLen: number) => {
-    if (fullStr.length <= strLen) return fullStr;
-
-    const separator = "...";
-    const sepLen = separator.length;
-    const charsToShow = strLen - sepLen;
-    const frontChars = Math.ceil(charsToShow / 2);
-    const backChars = Math.floor(charsToShow / 2);
-
-    return fullStr.slice(0, frontChars) + separator + fullStr.slice(fullStr.length - backChars);
-  };
   const { address } = useAccount();
 
   return (
@@ -34,9 +25,15 @@ export default function ContributionList({ contribution }: { contribution: Contr
               {contribution.title}
             </a>
             <div className="text-xs pt-1">
-              <a href="#" className="font-extralight text-secondary hover:text-secondary-focus">
-                by {contribution.hasProfile ? contribution.username : truncateStr(contribution.from, 15)}
-              </a>
+              <Link
+                href={`/profile/${encodeURIComponent(
+                  contribution.hasProfile ? contribution.username : contribution.from
+                )}`}
+              >
+                <a className="font-extralight text-secondary hover:text-secondary-focus">
+                  by {contribution.hasProfile ? contribution.username : truncateStr(contribution.from, 11)}
+                </a>
+              </Link>
             </div>
           </div>
         </div>
