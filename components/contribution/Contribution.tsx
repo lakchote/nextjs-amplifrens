@@ -18,6 +18,7 @@ export default function Contribution({
   hasVoteActions: boolean;
 }) {
   const { address } = useAccount();
+  const date = new Date(contribution.timestamp * 1000).toLocaleString("default", { dateStyle: "short" });
 
   return (
     <div className="lg:w-full mb-10">
@@ -41,6 +42,7 @@ export default function Contribution({
                   by {contribution.hasProfile ? contribution.username : truncateStr(contribution.from, 11)}
                 </a>
               </Link>
+              <span className="ml-10 font-extralight">{contribution.bestContribution && date}</span>
             </div>
           </div>
         </div>

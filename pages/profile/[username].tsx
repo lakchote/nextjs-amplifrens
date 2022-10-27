@@ -1,17 +1,17 @@
 import { useQuery } from "@apollo/client";
-import { faArrowAltCircleLeft, faTrophy } from "@fortawesome/free-solid-svg-icons";
+import { faTrophy } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useContractRead } from "wagmi";
-import Link from "next/link";
 import { GET_PROFILE_ADDRESS, GET_SBT_COUNT } from "../../constants/subgraphQueries";
 import truncateStr from "../../utils/truncate";
 import addressesJson from "../../constants/addresses.json";
 import facadeAbi from "../../constants/abi.json";
 import ShowProfileSocialHandles from "../../components/profile/ShowProfileSocialHandles";
 import statusesMapping from "../../constants/statusMapping";
+import BackToHomepage from "../../components/BackToHomepage";
 
 const ShowProfile: NextPage = () => {
   const router = useRouter();
@@ -97,14 +97,7 @@ const ShowProfile: NextPage = () => {
               </div>
             )}
             {hasUserProfile && profileInfo && <ShowProfileSocialHandles socialHandles={profileInfo} />}
-            <div className="mt-3 flex justify-center">
-              <Link href="/">
-                <a className="text-secondary">
-                  <FontAwesomeIcon icon={faArrowAltCircleLeft} className="mr-1" />
-                  Go back to contributions
-                </a>
-              </Link>
-            </div>
+            <BackToHomepage />
           </div>
         </div>
       </div>

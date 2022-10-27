@@ -1,12 +1,16 @@
 import { gql } from "@apollo/client";
 
 export const GET_CONTRIBUTIONS = gql`
-  query GetActiveContributions($first: Int!, $skip: Int!) {
+  query GetActiveContributions($first: Int!, $skip: Int!, $todayTimestamp: Int!, $tomorrowTimestamp: Int!) {
     contributions(
       first: $first
       skip: $skip
-      where: { from_not: "0x000000000000000000000000000000000000dead" }
-      orderBy: timestamp
+      where: {
+        from_not: "0x000000000000000000000000000000000000dead"
+        timestamp_gte: $todayTimestamp
+        timestamp_lte: $tomorrowTimestamp
+      }
+      orderBy: votes
       orderDirection: desc
     ) {
       from

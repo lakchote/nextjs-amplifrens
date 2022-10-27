@@ -18,6 +18,7 @@ const Home: NextPage = () => {
   const [upvotedEventContributionIds, setUpvotedEventContributionIds] = useState<Number[]>([]);
   const [downvotedEventContributionIds, setDownvotedEventContributionIds] = useState<Number[]>([]);
   const { address } = useAccount();
+
   const {
     loading: loadingContributions,
     error: errorContributions,
@@ -30,6 +31,8 @@ const Home: NextPage = () => {
     variables: {
       first: 5,
       skip: 0,
+      todayTimestamp: new Date().setUTCHours(0, 0, 0, 0) / 1000,
+      tomorrowTimestamp: new Date().setUTCHours(24, 0, 0, 0) / 1000,
     },
   });
   const { data: userUpvotedContributions, startPolling: startPollUpvotes } = useQuery(GET_USER_UPVOTED_CONTRIBUTIONS, {
@@ -98,6 +101,12 @@ const Home: NextPage = () => {
           <div className="flex justify-center">
             <CreateContribution />
           </div>
+          <div className="flex justify-center">
+            <h2 className="text-xl lg:text-3xl mt-12 ">Contributions of the day</h2>
+          </div>
+          {activeContributions?.contributions?.length === 0 && (
+            <div className="mt-10 flex justify-center"> No contributions for today.</div>
+          )}
           {activeContributions.contributions.map((activeContribution: ContributionInterface) => {
             return (
               <VoteEventsContext.Provider
@@ -109,7 +118,7 @@ const Home: NextPage = () => {
             );
           })}
           <div className="flex justify-center">
-            {activeContributions.contributions.length % 5 === 0 && (
+            {activeContributions?.contributions?.length !== 0 && activeContributions.contributions.length % 5 === 0 && (
               <button className="btn btn-accent mb-5" onClick={handlePagination}>
                 More
               </button>
