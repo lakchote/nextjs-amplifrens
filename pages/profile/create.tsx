@@ -1,6 +1,7 @@
+import { NextPage } from "next";
 import CreateProfileFormParent from "../../components/profile/CreateProfileFormParent";
 
-export default function CreateProfile() {
+const CreateProfile: NextPage = () => {
   return (
     <main className="container mt-8 lg:mt-10">
       <div className="text-center">
@@ -12,4 +13,6 @@ export default function CreateProfile() {
       <CreateProfileFormParent />
     </main>
   );
-}
+};
+
+export default CreateProfile;
