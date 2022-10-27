@@ -101,6 +101,9 @@ const Home: NextPage = () => {
           <div className="flex justify-center">
             <CreateContribution />
           </div>
+          <div className="flex justify-center">
+            <h2 className="text-xl lg:text-3xl mt-12 ">Contributions of the day</h2>
+          </div>
           {activeContributions?.contributions?.length === 0 && (
             <div className="mt-10 flex justify-center"> No contributions for today.</div>
           )}
