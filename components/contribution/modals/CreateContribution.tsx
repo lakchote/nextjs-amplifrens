@@ -42,7 +42,9 @@ export default function CreateContribution() {
       : isError && toast.error(`${"Error : " + error?.message}`);
     if (isSuccess) {
       setTimeout(() => {
-        inputToggle!.current!.checked = false;
+        if (inputToggle?.current) {
+          inputToggle.current.checked = false;
+        }
       }, 1000);
     }
   }, [isError, error, isSuccess, isLoading]);

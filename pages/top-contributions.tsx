@@ -23,7 +23,7 @@ export default function TopContributions() {
   refetch();
 
   return (
-    <div>
+    <>
       {loadingTopContributions ? (
         <div className="container mt-8 lg:mt-10 text-center text-accent">Loading...</div>
       ) : errorTopContributions ? (
@@ -66,6 +66,6 @@ export default function TopContributions() {
           <BackToHomepage />
         </main>
       )}
-    </div>
+    </>
   );
 }

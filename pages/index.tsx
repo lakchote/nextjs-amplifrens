@@ -98,14 +98,23 @@ const Home: NextPage = () => {
         </div>
       ) : (
         <main className="container mt-8 lg:mt-10">
+          {activeContributions?.contributions?.length > 0 && (
+            <div className="flex justify-center">
+              <CreateContribution />
+            </div>
+          )}
           <div className="flex justify-center">
-            <CreateContribution />
-          </div>
-          <div className="flex justify-center">
-            <h2 className="text-xl lg:text-3xl mt-12 ">Contributions of the day</h2>
+            <h2 className="text-xl lg:text-3xl mt-12 ">
+              {activeContributions?.contributions?.length === 0 ? "Contribute" : "Contributions of the day"}
+            </h2>
           </div>
           {activeContributions?.contributions?.length === 0 && (
-            <div className="mt-10 flex justify-center"> No contributions for today.</div>
+            <>
+              <div className="mt-8 flex justify-center"> No contributions for today (yet). Post one anon !</div>
+              <div className="flex justify-center mt-4">
+                <CreateContribution />
+              </div>
+            </>
           )}
           {activeContributions.contributions.map((activeContribution: ContributionInterface) => {
             return (
