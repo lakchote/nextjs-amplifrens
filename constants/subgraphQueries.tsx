@@ -22,6 +22,29 @@ export const GET_CONTRIBUTIONS = gql`
   }
 `;
 
+export const GET_TOP_CONTRIBUTIONS = gql`
+  query GetActiveTopContributions($first: Int!, $skip: Int!) {
+    contributions(
+      first: $first
+      skip: $skip
+      where: { from_not: "0x000000000000000000000000000000000000dead", bestContribution: true }
+      orderBy: votes
+      orderDirection: desc
+    ) {
+      from
+      hasProfile
+      title
+      url
+      username
+      votes
+      timestamp
+      category
+      contributionId
+      bestContribution
+    }
+  }
+`;
+
 export const GET_USER_UPVOTED_CONTRIBUTIONS = gql`
   query UserUpvotedContributions($address: Bytes!) {
     contributionUpvoteds(where: { from: $address }) {

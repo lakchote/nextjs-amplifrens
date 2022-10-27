@@ -8,9 +8,9 @@ import {
   GET_USER_UPVOTED_CONTRIBUTIONS,
   GET_USER_DOWNVOTED_CONTRIBUTIONS,
 } from "../constants/subgraphQueries";
-import Contribution from "../components/contribution/ContributionList";
 import CreateContribution from "../components/contribution/modals/CreateContribution";
 import Head from "next/head";
+import Contribution from "../components/contribution/Contribution";
 
 const VoteEventsContext = createContext<{ upvoted: Number[]; downvoted: Number[] }>({ upvoted: [], downvoted: [] });
 
@@ -104,17 +104,15 @@ const Home: NextPage = () => {
                 key={activeContribution.timestamp}
                 value={{ upvoted: upvotedEventContributionIds, downvoted: downvotedEventContributionIds }}
               >
-                <Contribution contribution={activeContribution} />
+                <Contribution contribution={activeContribution} hasVoteActions={true} />
               </VoteEventsContext.Provider>
             );
           })}
           <div className="flex justify-center">
-            {activeContributions.contributions.length % 5 === 0 ? (
+            {activeContributions.contributions.length % 5 === 0 && (
               <button className="btn btn-accent mb-5" onClick={handlePagination}>
                 More
               </button>
-            ) : (
-              ""
             )}
           </div>
         </main>
