@@ -2,6 +2,9 @@ import { useQuery } from "@apollo/client";
 import { GET_TOP_CONTRIBUTIONS } from "../constants/subgraphQueries";
 import { ContributionInterface } from "../interfaces/contribution";
 import Contribution from "../components/contribution/Contribution";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrophy } from "@fortawesome/free-solid-svg-icons";
+import BackToHomepage from "../components/BackToHomepage";
 
 export default function TopContributions() {
   const {
@@ -32,9 +35,16 @@ export default function TopContributions() {
         <div className="mt-10 flex justify-center"> No top contributions for the moment.</div>
       ) : (
         <main className="container mt-8 lg:mt-10">
+          <div className="flex justify-center">
+            <h2 className="text-xl lg:text-3xl">
+              <FontAwesomeIcon icon={faTrophy} className="text-yellow-400 mr-2" />
+              Top contributions
+            </h2>
+          </div>
+
           {activeTopContributions.contributions?.map((activeContribution: ContributionInterface) => (
             <Contribution
-              key={activeContribution.id + "-top-contribution"}
+              key={activeContribution.timestamp + "-top-contribution"}
               contribution={activeContribution}
               hasVoteActions={false}
             />
@@ -53,6 +63,7 @@ export default function TopContributions() {
               </button>
             )}
           </div>
+          <BackToHomepage />
         </main>
       )}
     </div>
