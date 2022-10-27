@@ -17,6 +17,8 @@ export default function TopContributions() {
     },
   });
 
+  refetch();
+
   return (
     <div>
       {loadingTopContributions ? (
@@ -26,6 +28,8 @@ export default function TopContributions() {
           There was an error.
           <br /> Please reach out on Discord or Twitter.
         </div>
+      ) : activeTopContributions?.contributions?.length === 0 ? (
+        <div className="mt-10 flex justify-center"> No top contributions for the moment.</div>
       ) : (
         <main className="container mt-8 lg:mt-10">
           {activeTopContributions.contributions?.map((activeContribution: ContributionInterface) => (
