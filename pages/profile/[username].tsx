@@ -12,13 +12,13 @@ import facadeAbi from "../../constants/abi.json";
 import ShowProfileSocialHandles from "../../components/profile/ShowProfileSocialHandles";
 import statusesMapping from "../../constants/statusMapping";
 import BackToHomepage from "../../components/BackToHomepage";
+import Link from "next/link";
 
 const ShowProfile: NextPage = () => {
   const router = useRouter();
   const { username } = router.query;
   const [profileAddress, setProfileAddress] = useState<string>("");
   const [addressToQuery, setAddressToQuery] = useState<string | undefined>("");
-
   const { data: getProfileAddress, loading: loadingGetProfileAddress } = useQuery(GET_PROFILE_ADDRESS, {
     variables: {
       username: username,
@@ -86,11 +86,18 @@ const ShowProfile: NextPage = () => {
             {sbtCountData?.sbtleaderboards[0] && (
               <div className="my-8 bg-base-100 rounded-md p-8">
                 <FontAwesomeIcon icon={faTrophy} className="text-yellow-400 mr-2" />
-                <a className="font-semibold cursor-pointer">
-                  {sbtCountData.sbtleaderboards[0].topContributionsCount > 1
-                    ? sbtCountData.sbtleaderboards[0].topContributionsCount + " top contributions"
-                    : sbtCountData.sbtleaderboards[0].topContributionsCount + " top contribution"}
-                </a>
+                <Link
+                  href={{
+                    pathname: "/top-contributions/[username]",
+                    query: { username: addressToQuery, profile: profileInfo?.username },
+                  }}
+                >
+                  <a className="font-semibold cursor-pointer">
+                    {sbtCountData.sbtleaderboards[0].topContributionsCount > 1
+                      ? sbtCountData.sbtleaderboards[0].topContributionsCount + " top contributions"
+                      : sbtCountData.sbtleaderboards[0].topContributionsCount + " top contribution"}
+                  </a>
+                </Link>
                 <span className="badge badge-primary block mx-auto mt-2">
                   {statusesMapping[parseInt(statusInfo?.toString() ?? "0")]}
                 </span>
