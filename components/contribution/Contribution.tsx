@@ -42,7 +42,7 @@ export default function Contribution({
                   by {contribution.hasProfile ? contribution.username : truncateStr(contribution.from, 11)}
                 </a>
               </Link>
-              <span className="ml-10 font-extralight">{date}</span>
+              <span className="ml-10 font-extralight">{contribution.bestContribution && date}</span>
             </div>
           </div>
         </div>
