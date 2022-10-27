@@ -5,8 +5,9 @@ import Contribution from "../components/contribution/Contribution";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrophy } from "@fortawesome/free-solid-svg-icons";
 import BackToHomepage from "../components/BackToHomepage";
+import { NextPage } from "next";
 
-export default function TopContributions() {
+const TopContributions: NextPage = () => {
   const {
     loading: loadingTopContributions,
     error: errorTopContributions,
@@ -68,4 +69,6 @@ export default function TopContributions() {
       )}
     </>
   );
-}
+};
+
+export default TopContributions;
