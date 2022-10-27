@@ -1,4 +1,4 @@
-import { faThumbsUp } from "@fortawesome/free-solid-svg-icons";
+import { faStar, faThumbsUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ContributionInterface } from "../../interfaces/contribution";
 import { useAccount } from "wagmi";
@@ -10,7 +10,13 @@ import contributionCategories from "../../constants/categoryMapping";
 import truncateStr from "../../utils/truncate";
 import Link from "next/link";
 
-export default function ContributionList({ contribution }: { contribution: ContributionInterface }) {
+export default function Contribution({
+  contribution,
+  hasVoteActions,
+}: {
+  contribution: ContributionInterface;
+  hasVoteActions: boolean;
+}) {
   const { address } = useAccount();
 
   return (
@@ -22,6 +28,7 @@ export default function ContributionList({ contribution }: { contribution: Contr
           </div>
           <div className="font-bold lg:text-lg">
             <a className="hover:text-primary" href={contribution.url}>
+              {contribution.bestContribution && <FontAwesomeIcon className="text-yellow-400" icon={faStar} />}{" "}
               {contribution.title}
             </a>
             <div className="text-xs pt-1">
@@ -41,20 +48,24 @@ export default function ContributionList({ contribution }: { contribution: Contr
           <FontAwesomeIcon icon={faThumbsUp} className={contribution.votes > 0 ? "text-primary" : ""} />{" "}
           {contribution.votes}
         </div>
-        <div className="divider"></div>
-        <div className="flex justify-around text-sm">
-          {!address || contribution.from.toUpperCase() !== address.toUpperCase() ? (
-            <>
-              <UpvoteContribution contributionId={contribution.contributionId} />
-              <DownvoteContribution contributionId={contribution.contributionId} />
-            </>
-          ) : (
-            <>
-              <UpdateContribution contributionId={contribution.contributionId} />
-              <DeleteContribution contributionId={contribution.contributionId} />
-            </>
-          )}
-        </div>
+        {hasVoteActions && (
+          <>
+            <div className="divider"></div>
+            <div className="flex justify-around text-sm">
+              {!address || contribution.from.toUpperCase() !== address.toUpperCase() ? (
+                <>
+                  <UpvoteContribution contributionId={contribution.contributionId} />
+                  <DownvoteContribution contributionId={contribution.contributionId} />
+                </>
+              ) : (
+                <>
+                  <UpdateContribution contributionId={contribution.contributionId} />
+                  <DeleteContribution contributionId={contribution.contributionId} />
+                </>
+              )}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

@@ -7,8 +7,9 @@ export interface ContributionInterface {
   url: string;
   username: string;
   from: string;
-  hasProfile: boolean;
   contributionId: number;
+  hasProfile: boolean;
+  bestContribution: boolean;
 }
 
 export interface ContributionVotesInterface {
