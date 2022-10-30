@@ -48,7 +48,7 @@ export default function CustomConnectButton() {
             {(() => {
               if (!connected) {
                 return (
-                  <button onClick={openConnectModal} type="button" className="btn btn-secondary btn-sm lg:btn-md">
+                  <button onClick={openConnectModal} type="button" className="btn btn-neutral btn-sm lg:btn-md">
                     Connect
                   </button>
                 );
@@ -56,7 +56,7 @@ export default function CustomConnectButton() {
 
               if (chain.unsupported) {
                 return (
-                  <button onClick={openChainModal} type="button" className="btn btn-secondary btn-sm lg:btn-md">
+                  <button onClick={openChainModal} type="button" className="btn btn-accent btn-sm lg:btn-md">
                     Wrong network
                   </button>
                 );
@@ -77,21 +77,25 @@ export default function CustomConnectButton() {
                     {profileUpdated ?? hasUserProfile ? (
                       <>
                         <li>
-                          <Link href={`/profile/${encodeURIComponent(profileInfo?.username)}`}>
-                            <a onClick={() => setDropdownOpen(false)}>Show profile</a>
+                          <Link href={`/profile/${encodeURIComponent(profileUpdated ?? profileInfo?.username)}`}>
+                            <a className="hover:text-white" onClick={() => setDropdownOpen(false)}>
+                              Show profile
+                            </a>
                           </Link>
                         </li>
                       </>
                     ) : (
                       <li>
                         <Link href="/profile/create">
-                          <a onClick={() => setDropdownOpen(false)}>Create profile</a>
+                          <a className="hover:text-white" onClick={() => setDropdownOpen(false)}>
+                            Create profile
+                          </a>
                         </Link>
                       </li>
                     )}
                     <div className="divider my-1"></div>
                     <li>
-                      <a className="btn btn-sm btn-secondary align-top p-1" onClick={() => disconnect()}>
+                      <a className="btn btn-sm btn-accent text-white align-top p-1" onClick={() => disconnect()}>
                         Disconnect
                       </a>
                     </li>

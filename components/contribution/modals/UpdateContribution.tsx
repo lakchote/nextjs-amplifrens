@@ -58,7 +58,7 @@ export default function UpdateContribution({ contributionId }: { contributionId:
         <div className="modal-box">
           <label
             htmlFor={"contribution-update-modal" + contributionId}
-            className="btn btn-sm btn-circle absolute right-2 top-2"
+            className="btn btn-sm btn-circle btn-secondary absolute right-2 top-2"
           >
             ✕
           </label>
@@ -83,7 +83,7 @@ export default function UpdateContribution({ contributionId }: { contributionId:
             </label>
             <input
               id="contribution-update-title"
-              className="mb-4 input input-bordered w-full max-w-lg focus:input-primary"
+              className="mb-4 input input-bordered w-full max-w-lg focus:input-accent"
               onChange={(e) => setTitle(e.target.value)}
             />
             <label htmlFor="contribution-update-url" className="label font-semibold">
@@ -91,10 +91,10 @@ export default function UpdateContribution({ contributionId }: { contributionId:
             </label>
             <input
               id="contribution-update-url"
-              className="input input-bordered w-full max-w-lg focus:input-primary mb-5"
+              className="input input-bordered w-full max-w-lg focus:input-accent mb-5"
               onChange={(e) => setUrl(e.target.value)}
             />
-            <button className="btn btn-primary" onClick={(e) => handleUpdate(e)}>
+            <button className="btn btn-accent" onClick={(e) => handleUpdate(e)}>
               Update
             </button>
           </form>

@@ -49,9 +49,9 @@ const Home: NextPage = () => {
     }
   );
 
-  startPollUpvotes(3000);
-  startPollDownvotes(3000);
-  startPollContributions(1000);
+  startPollUpvotes(parseInt(process.env.NEXT_PUBLIC_POLL_UPVOTES!));
+  startPollDownvotes(parseInt(process.env.NEXT_PUBLIC_POLL_DOWNVOTES!));
+  startPollContributions(parseInt(process.env.NEXT_PUBLIC_POLL_CONTRIBUTIONS!));
 
   useEffect(() => {
     if (userUpvotedContributions) {
@@ -104,7 +104,7 @@ const Home: NextPage = () => {
             </div>
           )}
           <div className="flex justify-center">
-            <h2 className="text-xl lg:text-3xl mt-12 ">
+            <h2 className="text-xl text-primary lg:text-3xl mt-12 ">
               {activeContributions?.contributions?.length === 0 ? "Contribute" : "Contributions of the day"}
             </h2>
           </div>

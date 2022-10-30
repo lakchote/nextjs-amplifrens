@@ -72,13 +72,13 @@ export default function CreateProfileFormChild({
   return (
     <>
       {showParentForm && (
-        <button className="btn btn-sm btn-secondary mt-3" onClick={() => setShowParentForm(false)}>
+        <button className="btn btn-sm btn-neutral mt-3" onClick={() => setShowParentForm(false)}>
           <FontAwesomeIcon className="mr-1" icon={faArrowAltCircleRight} /> Next
         </button>
       )}
       {!showParentForm && (
         <>
-          <button className="btn btn-sm btn-secondary mt-3 mb-6" onClick={() => setShowParentForm(true)}>
+          <button className="btn btn-sm btn-neutral mt-3 mb-6" onClick={() => setShowParentForm(true)}>
             <FontAwesomeIcon className="mr-1" icon={faArrowAltCircleLeft} /> Previous
           </button>
           <label htmlFor="profile-create-lens" className="label font-semibold">
@@ -87,7 +87,7 @@ export default function CreateProfileFormChild({
           <input
             id="profile-create-lens"
             placeholder={lensHandle}
-            className="mb-4 input input-bordered w-full max-w-lg focus:input-primary"
+            className="mb-4 input input-bordered w-full max-w-lg focus:input-accent"
             onChange={(e) => setLensHandle(e.target.value)}
           />
           <label htmlFor="profile-create-twitter" className="label font-semibold">
@@ -96,7 +96,7 @@ export default function CreateProfileFormChild({
           <input
             id="profile-create-twitter"
             placeholder={twitterHandle}
-            className="mb-4 input input-bordered w-full max-w-lg focus:input-primary"
+            className="mb-4 input input-bordered w-full max-w-lg focus:input-accent"
             onChange={(e) => setTwitterHandle(e.target.value)}
           />
           <label htmlFor="profile-create-discord" className="label font-semibold">
@@ -105,10 +105,10 @@ export default function CreateProfileFormChild({
           <input
             id="profile-create-discord"
             placeholder={discordHandle}
-            className="mb-4 input input-bordered w-full max-w-lg focus:input-primary"
+            className="mb-4 input input-bordered w-full max-w-lg focus:input-accent"
             onChange={(e) => setDiscordHandle(e.target.value)}
           />
-          <button className="btn btn-primary mt-3" onClick={handleCreate}>
+          <button className="btn btn-accent mt-3" onClick={handleCreate}>
             Create
           </button>
         </>

@@ -68,23 +68,25 @@ const ShowProfile: NextPage = () => {
     <main className="container">
       <div className="flex justify-center">
         {loadingGetProfileAddress && <div className="h-screen text-accent">Loading...</div>}
-        <div className="card glass w-full lg:w-1/2 p-2 m-2">
+        <div className="card bg-gradient-to-r from-base-100 to-neutral border-t-accent border-b-accent border border-l-neutral border-r-neutral  w-full lg:w-1/2 p-2 m-2 mt-8">
           <div className="card-body items-center text-center">
-            <h2 className="card-title text-3xl mb-2">
-              {profileInfo?.username
-                ? profileInfo!.username
-                : profileAddress === "" && username
-                ? truncateStr(username!.toString(), 11)
-                : username}
+            <h2 className="card-title text-2xl lg:text-3xl mb-2">
+              <span className="text-primary">
+                {profileInfo?.username
+                  ? profileInfo!.username
+                  : profileAddress === "" && username
+                  ? truncateStr(username!.toString(), 11)
+                  : username}
+              </span>
             </h2>
             {loadingSbtCount && <div className="text-accent">Loading...</div>}
             {!sbtCountData?.sbtleaderboards[0] && (
-              <span className="badge badge-primary block mx-auto mt-2">
+              <span className="badge badge-default block mx-auto mt-2">
                 {statusesMapping[parseInt(statusInfo?.toString() ?? "0")]}
               </span>
             )}
             {sbtCountData?.sbtleaderboards[0] && (
-              <div className="my-8 bg-base-100 rounded-md p-8">
+              <div className="my-8 bg-gradient-to-r from-neutral to-accent rounded-md p-8">
                 <FontAwesomeIcon icon={faTrophy} className="text-yellow-400 mr-2" />
                 <Link
                   href={{
@@ -92,13 +94,13 @@ const ShowProfile: NextPage = () => {
                     query: { username: addressToQuery, profile: profileInfo?.username },
                   }}
                 >
-                  <a className="font-semibold cursor-pointer">
+                  <a className="font-semibold cursor-pointer text-secondary hover:text-secondary-focus">
                     {sbtCountData.sbtleaderboards[0].topContributionsCount > 1
                       ? sbtCountData.sbtleaderboards[0].topContributionsCount + " top contributions"
                       : sbtCountData.sbtleaderboards[0].topContributionsCount + " top contribution"}
                   </a>
                 </Link>
-                <span className="badge badge-primary block mx-auto mt-2">
+                <span className="badge badge-default block mx-auto mt-2">
                   {statusesMapping[parseInt(statusInfo?.toString() ?? "0")]}
                 </span>
               </div>
