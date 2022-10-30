@@ -6,7 +6,7 @@ export default function BackToHomepage() {
   return (
     <div className="my-2 flex justify-center">
       <Link href="/">
-        <a className="text-secondary">
+        <a className="text-secondary hover:text-accent">
           <FontAwesomeIcon icon={faArrowAltCircleLeft} className="mr-1" />
           Go back to contributions
         </a>

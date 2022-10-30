@@ -26,15 +26,15 @@ const Leaderboard: NextPage = () => {
       ) : (
         <main className="container mt-8 lg:mt-10">
           <div className="flex justify-center">
-            <h2 className="text-xl lg:text-3xl">✨ Leaderboard</h2>
+            <h2 className="text-xl lg:text-3xl text-primary">✨ Leaderboard</h2>
           </div>
-          <div className="overflow-x-auto flex justify-center mt-10">
+          <div className="overflow-x-auto flex justify-center mt-16">
             <table className="table flex justify-center border-secondary border-b-2 border-x-secondary">
               <thead>
                 <tr>
                   <th>🏆</th>
-                  <th>Name</th>
-                  <th>Status</th>
+                  <th className="text-center text-secondary">Name</th>
+                  <th className="text-center text-secondary">Status</th>
                   <th></th>
                 </tr>
               </thead>
@@ -44,7 +44,17 @@ const Leaderboard: NextPage = () => {
                     return (
                       <tr key={index}>
                         <td className="text-center">{index + 1}</td>
-                        <td>{address.username ?? address.id}</td>
+                        <td>
+                          {address.username ? (
+                            <>
+                              <Link href={`/profile/${encodeURIComponent(address.username)}`}>
+                                <a className="text-accent text-center">{address.username}</a>
+                              </Link>
+                            </>
+                          ) : (
+                            <>{address.id}</>
+                          )}
+                        </td>
                         <td className="align-middle">
                           <span className="badge badge-default block">{statusesMapping[address.status]}</span>
                         </td>
@@ -55,15 +65,8 @@ const Leaderboard: NextPage = () => {
                               query: { username: address.id, profile: address.username },
                             }}
                           >
-                            <a className="btn btn-primary btn-xs">Contributions</a>
+                            <a className="btn btn-accent btn-xs">Contributions</a>
                           </Link>
-                          {address.username && (
-                            <>
-                              <Link href={`/profile/${encodeURIComponent(address.username)}`}>
-                                <a className="btn btn-secondary btn-xs ml-3">Profile</a>
-                              </Link>
-                            </>
-                          )}
                         </td>
                       </tr>
                     );

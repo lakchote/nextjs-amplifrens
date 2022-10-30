@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import CustomConnectButton from "./CustomConnectButton";
 
@@ -30,8 +31,9 @@ export default function Header() {
             </li>
           </ul>
         </div>
+        <Image src="/logo.png" alt="" width={60} height={60} />
         <Link href="/">
-          <a className="lg:text-3xl text-xl font-bold px-1 lg:px-2 text-primary">AmpliFrens</a>
+          <a className="lg:text-3xl text-xl font-bold px-1 lg:px-2 text-primary">amplifrens</a>
         </Link>
       </div>
       <div className="navbar-end lg:flex">

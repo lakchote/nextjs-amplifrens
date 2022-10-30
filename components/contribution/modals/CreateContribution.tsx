@@ -53,7 +53,7 @@ export default function CreateContribution() {
     <>
       <label
         htmlFor="contribution-create-modal"
-        className="flex btn btn-primary btn-sm lg:btn-md rounded-md items-center text-center hover:border-white border-transparent border-2 text-sm lg:text-md"
+        className="flex btn btn-accent btn-sm rounded-md items-center text-center hover:border-primary border-transparent border-2 text-sm lg:text-md text-primary"
         onClick={() => isDisconnected && openConnectModal?.()}
       >
         New contribution
@@ -61,7 +61,10 @@ export default function CreateContribution() {
       <input type="checkbox" id="contribution-create-modal" className="modal-toggle" ref={inputToggle} />
       <div className="modal modal-bottom sm:modal-middle">
         <div className="modal-box">
-          <label htmlFor="contribution-create-modal" className="btn btn-sm btn-circle absolute right-2 top-2">
+          <label
+            htmlFor="contribution-create-modal"
+            className="btn btn-sm btn-circle btn-secondary absolute right-2 top-2"
+          >
             ✕
           </label>
           <h3 className="text-xl text-primary">Post a contribution</h3>
@@ -85,7 +88,7 @@ export default function CreateContribution() {
             </label>
             <input
               id="contribution-create-title"
-              className="mb-4 input input-bordered w-full max-w-lg focus:input-primary"
+              className="mb-4 input input-bordered w-full max-w-lg focus:input-accent"
               onChange={(e) => setTitle(e.target.value)}
             />
             <label htmlFor="contribution-create-url" className="label font-semibold">
@@ -93,10 +96,10 @@ export default function CreateContribution() {
             </label>
             <input
               id="contribution-create-url"
-              className="input input-bordered w-full max-w-lg focus:input-primary mb-5"
+              className="input input-bordered w-full max-w-lg focus:input-accent mb-5"
               onChange={(e) => setUrl(e.target.value)}
             />
-            <button className="btn btn-primary" onClick={(e) => handlePost(e)}>
+            <button className="btn btn-accent text-primary" onClick={(e) => handlePost(e)}>
               Post
             </button>
           </form>

@@ -37,7 +37,7 @@ const TopContributions: NextPage = () => {
       ) : (
         <main className="container mt-8 lg:mt-10">
           <div className="flex justify-center">
-            <h2 className="text-xl lg:text-3xl">
+            <h2 className="text-xl lg:text-3xl text-primary">
               <FontAwesomeIcon icon={faTrophy} className="text-yellow-400 mr-2" />
               Top contributions
             </h2>

@@ -48,7 +48,7 @@ export default function DownvoteContribution({ contributionId }: { contributionI
       className={
         downvoted.includes(contributionId)
           ? "text-primary hover:cursor-not-allowed"
-          : "align-middle hover:text-primary hover:cursor-pointer"
+          : "align-middle hover:text-accent hover:cursor-pointer"
       }
       onClick={() => handleVote()}
     >

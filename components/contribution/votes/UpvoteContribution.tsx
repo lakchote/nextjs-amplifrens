@@ -48,7 +48,7 @@ export default function UpvoteContribution({ contributionId }: { contributionId:
       className={
         upvoted.includes(contributionId)
           ? "text-primary mx-2.5 hover:cursor-not-allowed"
-          : "mx-2.5 hover:text-primary hover:cursor-pointer"
+          : "mx-2.5 hover:text-accent hover:cursor-pointer"
       }
       onClick={() => handleVote()}
     >
