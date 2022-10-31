@@ -1,67 +1,33 @@
-1. Header
-    * Connect account
-    * Put logo to left
-    * Tailwind
-2. Home
-    * Show header
-    * Fetch latest news by users in desc order
-3. Profile page
-4. Leaderboard
-5. Top contributions
+# AmpliFrens
 
+Frontend repository for [AmpliFrens](https://github.com/lakchote/amplifrens), a platform where you can:
+- get the daily crypto news posted by the community
+- make frens
+- amplify your network
+- earn special perks by contributing
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Under the hood, it uses [The Graph](https://thegraph.com/en/) to index events and fetch data from the blockchain.
 
 ## Getting Started
 
-First, run the development server:
+PREREQUISITES
 
-```bash
-npm run dev
-# or
+1. Install dependencies
+```
+yarn
+```
+
+2. Fill the env variables in a new .env.local file.
+If subgraph is deployed locally, `RPC_LOCAL_NODE` should be equal to `http://127.0.0.1:8545/`
+
+3. Launch local server
+```
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Project in action
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+Project is deployed in a decentralized manner on IPFS, and backed up by Filecoin, thanks to the wonderful [Fleek](https://fleek.co/) solution.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+You can see it in action here:
+https://empty-hat-4319.on.fleek.co/
