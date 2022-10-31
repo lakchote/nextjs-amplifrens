@@ -6,7 +6,7 @@ export default function ShowProfileSocialHandles({ socialHandles }: { socialHand
       {socialHandles.lensHandle && (
         <>
           <a
-            className="btn bg-gradient-to-r from-base-100 mt-3"
+            className="btn bg-gradient-to-r from-base-100 mt-3 hover:border hover:border-secondary"
             href={`https://lenster.xyz/u/${socialHandles.lensHandle}`}
           >
             🌿 Lens
@@ -16,7 +16,7 @@ export default function ShowProfileSocialHandles({ socialHandles }: { socialHand
       {socialHandles.twitterHandle && (
         <>
           <a
-            className="btn bg-gradient-to-r from-base-100 mt-3"
+            className="btn bg-gradient-to-r from-base-100 mt-3 hover:border hover:border-secondary"
             href={`https://www.twitter.com/${socialHandles.twitterHandle}`}
           >
             🐦 Twitter
@@ -26,7 +26,7 @@ export default function ShowProfileSocialHandles({ socialHandles }: { socialHand
       {socialHandles.discordHandle && (
         <>
           <span
-            className="btn bg-gradient-to-r from-base-100 mt-3"
+            className="btn bg-gradient-to-r from-base-100 mt-3 hover:border hover:border-secondary"
             onClick={(e) => {
               navigator.clipboard.writeText(e.currentTarget.innerText.slice(2));
             }}
@@ -37,14 +37,20 @@ export default function ShowProfileSocialHandles({ socialHandles }: { socialHand
       )}
       {socialHandles.websiteUrl && (
         <>
-          <a className="btn bg-gradient-to-r from-base-100 mt-3" href={socialHandles.websiteUrl}>
+          <a
+            className="btn bg-gradient-to-r from-base-100 mt-3 hover:border hover:border-secondary"
+            href={socialHandles.websiteUrl}
+          >
             🌐 Website
           </a>
         </>
       )}
       {socialHandles.email && (
         <>
-          <a className="btn bg-gradient-to-r from-base-100 mt-3" href={`mailto:${socialHandles.email}`}>
+          <a
+            className="btn bg-gradient-to-r from-base-100 mt-3 hover:border hover:border-secondary"
+            href={`mailto:${socialHandles.email}`}
+          >
             ✉️ Email
           </a>
         </>
