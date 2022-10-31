@@ -38,7 +38,7 @@ const { chains, provider } = configureChains(
   [
     infuraProvider({ apiKey: process.env.INFURA_API_KEY }),
     jsonRpcProvider({
-      rpc: () => ({ http: process.env.RPC_LOCAL_NODE_URL! }),
+      rpc: () => ({ http: process.env.RPC_NODE_URL! }),
     }),
   ]
 );
