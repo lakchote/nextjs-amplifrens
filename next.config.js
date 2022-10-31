@@ -8,6 +8,11 @@ const nextConfig = {
   },
   assetPrefix: ".",
   trailingSlash: true,
+  exportPathMap: function () {
+    return {
+      "/": { page: "/" },
+    };
+  },
 };
 
 module.exports = nextConfig;
