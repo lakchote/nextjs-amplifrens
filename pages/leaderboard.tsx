@@ -40,7 +40,10 @@ const Leaderboard: NextPage = () => {
               </thead>
               <tbody>
                 {leaderboardAddresses?.sbtleaderboards.map(
-                  (address: { id: string; username: string | null; status: number }, index: number) => {
+                  (
+                    address: { id: string; username: string | null; status: number; topContributionsCount: number },
+                    index: number
+                  ) => {
                     return (
                       <tr key={index}>
                         <td className="text-center">{index + 1}</td>
@@ -59,13 +62,11 @@ const Leaderboard: NextPage = () => {
                           <span className="badge badge-default block">{statusesMapping[address.status]}</span>
                         </td>
                         <td>
-                          <Link
-                            href={{
-                              pathname: "/top-contributions/[username]",
-                              query: { username: address.id, profile: address.username },
-                            }}
-                          >
-                            <a className="btn btn-accent btn-xs">Contributions</a>
+                          <Link href={`/top-contributions/${encodeURIComponent(address.id)}`}>
+                            <a className="btn btn-accent btn-xs">
+                              {address.topContributionsCount}
+                              {address.topContributionsCount > 1 ? " contributions" : " contribution"}
+                            </a>
                           </Link>
                         </td>
                       </tr>

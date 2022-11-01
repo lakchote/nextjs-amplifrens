@@ -3,15 +3,15 @@ import { faTrophy } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
-import BackToHomepage from "../../components/BackToHomepage";
-import Contribution from "../../components/contribution/Contribution";
 import { GET_USER_TOP_CONTRIBUTIONS } from "../../constants/subgraphQueries";
 import { ContributionInterface } from "../../interfaces/contribution";
 import truncateStr from "../../utils/truncate";
+import BackToHomepage from "../../components/BackToHomepage";
+import Contribution from "../../components/contribution/Contribution";
 
 const UserTopContributions: NextPage = () => {
   const router = useRouter();
-  const { username, profile } = router.query;
+  const { address } = router.query;
 
   const {
     loading: loadingTopContributions,
@@ -23,7 +23,7 @@ const UserTopContributions: NextPage = () => {
     variables: {
       first: 5,
       skip: 0,
-      address: username ?? "",
+      address: address ?? "",
     },
   });
 
@@ -37,14 +37,14 @@ const UserTopContributions: NextPage = () => {
           <br /> Please reach out on Discord or Twitter.
         </div>
       ) : activeTopContributions?.contributions?.length === 0 ? (
-        <div className="mt-10 flex justify-center"> No top contributions for the user {username}.</div>
+        <div className="mt-10 flex justify-center"> No top contributions for address {address}.</div>
       ) : (
         <main className="container mt-8 lg:mt-10">
           <div className="flex justify-center">
             <h2 className="text-xl lg:text-3xl text-primary">
               <FontAwesomeIcon icon={faTrophy} className="text-yellow-400 mr-2" />
-              {profile ? profile : username!.length === 42 ? truncateStr(username!.toString(), 11) : username}&apos;s
-              top contributions
+              {truncateStr(address!.toString(), 11)}
+              &apos;s top contributions
             </h2>
           </div>
 
