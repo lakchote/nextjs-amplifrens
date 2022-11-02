@@ -48,7 +48,7 @@ const { connectors } = getDefaultWallets({
 });
 
 const wagmiClient = createClient({
-  autoConnect: true,
+  autoConnect: false,
   connectors,
   provider,
 });
@@ -67,11 +67,13 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <WagmiConfig client={wagmiClient}>
       <ApolloProvider client={graphqlClient}>
-        <RainbowKitProvider chains={chains} theme={darkTheme({ accentColor: "#5f43b2" })}>
+        <RainbowKitProvider modalSize="compact" chains={chains} theme={darkTheme({ accentColor: "#3abff8" })}>
           <ProfileContext.Provider value={{ profileUpdated: profileUpdated, setProfileUsername }}>
-            <Header />
-            <ToastContainer theme="dark" />
-            <Component {...pageProps} />
+            <div data-theme="night">
+              <Header />
+              <ToastContainer theme="dark" />
+              <Component {...pageProps} />
+            </div>
           </ProfileContext.Provider>
         </RainbowKitProvider>
       </ApolloProvider>

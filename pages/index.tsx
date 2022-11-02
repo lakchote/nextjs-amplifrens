@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import { useQuery } from "@apollo/client";
-import { ContributionInterface, ContributionVotesInterface } from "../interfaces/contribution";
+import { ContributionInterface } from "../interfaces/Contribution";
+import { ContributionVotesInterface } from "../interfaces/ContributionVotes";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useAccount } from "wagmi";
 import {
@@ -104,7 +105,7 @@ const Home: NextPage = () => {
             </div>
           )}
           <div className="flex justify-center">
-            <h2 className="text-xl text-primary lg:text-3xl mt-12 ">
+            <h2 className="text-xl lg:text-3xl mt-12 ">
               {activeContributions?.contributions?.length === 0 ? "Contribute" : "Contributions of the day"}
             </h2>
           </div>

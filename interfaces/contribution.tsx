@@ -11,10 +11,3 @@ export interface ContributionInterface {
   hasProfile: boolean;
   bestContribution: boolean;
 }
-
-export interface ContributionVotesInterface {
-  id: number;
-  from: string;
-  contributionId: number;
-  timestamp: number;
-}

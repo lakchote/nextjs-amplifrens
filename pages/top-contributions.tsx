@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { GET_TOP_CONTRIBUTIONS } from "../constants/subgraphQueries";
-import { ContributionInterface } from "../interfaces/contribution";
+import { ContributionInterface } from "../interfaces/Contribution";
 import Contribution from "../components/contribution/Contribution";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrophy } from "@fortawesome/free-solid-svg-icons";
@@ -42,7 +42,6 @@ const TopContributions: NextPage = () => {
               Top contributions
             </h2>
           </div>
-
           {activeTopContributions.contributions?.map((activeContribution: ContributionInterface) => (
             <Contribution
               key={activeContribution.timestamp + "-top-contribution"}

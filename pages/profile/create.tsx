@@ -10,8 +10,8 @@ const CreateProfile: NextPage = () => {
           Creating a profile enables you to{" "}
           <span className="text-secondary">
             <strong>amplify your network</strong>
-          </span>{" "}
-          and{" "}
+          </span>
+          and
           <span className="text-secondary">
             <strong>make frens</strong>
           </span>

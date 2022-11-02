@@ -53,7 +53,7 @@ export default function CreateContribution() {
     <>
       <label
         htmlFor="contribution-create-modal"
-        className="flex btn btn-accent btn-sm rounded-md items-center text-center hover:border-primary border-transparent border-2 text-sm lg:text-md text-primary"
+        className="flex btn btn-accent btn-sm rounded-md items-center text-center hover:border-primary border-transparent border-2 text-sm lg:text-md"
         onClick={() => isDisconnected && openConnectModal?.()}
       >
         New contribution

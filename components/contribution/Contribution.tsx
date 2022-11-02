@@ -1,6 +1,6 @@
-import { faStar, faThumbsUp } from "@fortawesome/free-solid-svg-icons";
+import { faThumbsUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ContributionInterface } from "../../interfaces/contribution";
+import { ContributionInterface } from "../../interfaces/Contribution";
 import { useAccount } from "wagmi";
 import UpvoteContribution from "./votes/UpvoteContribution";
 import DownvoteContribution from "./votes/DownvoteContribution";
