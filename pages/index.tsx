@@ -32,8 +32,6 @@ const Home: NextPage = () => {
     variables: {
       first: 5,
       skip: 0,
-      todayTimestamp: new Date().setUTCHours(0, 0, 0, 0) / 1000,
-      tomorrowTimestamp: new Date().setUTCHours(24, 0, 0, 0) / 1000,
     },
   });
   const { data: userUpvotedContributions, startPolling: startPollUpvotes } = useQuery(GET_USER_UPVOTED_CONTRIBUTIONS, {
@@ -87,55 +85,53 @@ const Home: NextPage = () => {
           name="description"
           content="Latest crypto news by frens for frens. Earn special perks and amplify your network."
         />
-        <link rel="icon" href="/favicon.svg" />
+        <link rel="icon" href="favicon.ico" />
       </Head>
-
-      {loadingContributions ? (
-        <div className="container mt-8 lg:mt-10 text-center text-accent">Loading...</div>
-      ) : errorContributions ? (
-        <div className="container mt-8 lg:mt-10 text-center text-accent">
-          There was an error.
-          <br /> Please reach out on Discord or Twitter.
-        </div>
-      ) : (
-        <main className="container mt-8 lg:mt-10">
-          {activeContributions?.contributions?.length > 0 && (
-            <div className="flex justify-center">
-              <CreateContribution />
-            </div>
-          )}
-          <div className="flex justify-center">
-            <h2 className="text-xl lg:text-3xl mt-12 ">
-              {activeContributions?.contributions?.length === 0 ? "Contribute" : "Contributions of the day"}
-            </h2>
+      <main className="max-w-full">
+        {loadingContributions ? (
+          <div className="mt-8 lg:mt-10 text-center text-accent container">Loading...</div>
+        ) : errorContributions ? (
+          <div className="mt-8 lg:mt-10 text-center text-accent container">
+            There was an error.
+            <br /> Please reach out on Discord or Twitter.
           </div>
-          {activeContributions?.contributions?.length === 0 && (
-            <>
-              <div className="mt-8 flex justify-center"> No contributions for today (yet). Post one anon !</div>
-              <div className="flex justify-center mt-4">
+        ) : (
+          <div className="">
+            {activeContributions?.contributions?.length > 0 && (
+              <div className="flex justify-center">
                 <CreateContribution />
               </div>
-            </>
-          )}
-          {activeContributions.contributions.map((activeContribution: ContributionInterface) => {
-            return (
-              <VoteEventsContext.Provider
-                key={activeContribution.timestamp}
-                value={{ upvoted: upvotedEventContributionIds, downvoted: downvotedEventContributionIds }}
-              >
-                <Contribution contribution={activeContribution} hasVoteActions={true} />
-              </VoteEventsContext.Provider>
-            );
-          })}
-          <div className="flex justify-center">
-            {activeContributions?.contributions?.length !== 0 && activeContributions.contributions.length % 5 === 0 && (
-              <button className="btn btn-accent mb-5" onClick={handlePagination}>
-                More
-              </button>
             )}
+            {activeContributions?.contributions?.length === 0 && (
+              <>
+                <div className="mt-32 w-1/2 mx-auto lg:flex lg:flex-col">
+                  <h2 className="text-white text-xl mt-8 text-center">No Contributions Yet</h2>
+                </div>
+                <div className="flex justify-center mt-10">
+                  <CreateContribution />
+                </div>
+              </>
+            )}
+            {activeContributions.contributions.map((activeContribution: ContributionInterface) => {
+              return (
+                <VoteEventsContext.Provider
+                  key={activeContribution.timestamp}
+                  value={{ upvoted: upvotedEventContributionIds, downvoted: downvotedEventContributionIds }}
+                >
+                  <Contribution contribution={activeContribution} hasVoteActions={true} />
+                </VoteEventsContext.Provider>
+              );
+            })}
+            <div className="flex justify-center">
+              {activeContributions?.contributions?.length !== 0 && activeContributions.contributions.length % 5 === 0 && (
+                <button className="btn btn-accent mb-5" onClick={handlePagination}>
+                  More
+                </button>
+              )}
+            </div>
           </div>
-        </main>
-      )}
+        )}
+      </main>
     </div>
   );
 };

@@ -55,8 +55,11 @@ export default function CustomConnectButton() {
             {(() => {
               if (!connected) {
                 return (
-                  <button onClick={openConnectModal} type="button" className="btn btn-primary btn-sm mt-0">
-                    <FontAwesomeIcon icon={faUserAstronaut} className="mr-1" />
+                  <button
+                    onClick={openConnectModal}
+                    type="button"
+                    className="btn btn-accent btn-sm lg:btn-md rounded-full text-white px-4 lg:px-8"
+                  >
                     Connect
                   </button>
                 );
@@ -67,17 +70,21 @@ export default function CustomConnectButton() {
                   <button
                     onClick={() => switchNetwork?.(parseInt(process.env.NEXT_PUBLIC_CHAIN_ID!))}
                     type="button"
-                    className="btn btn-primary btn-sm"
+                    className="btn btn-sm lg:btn-md btn-accent rounded-full text-white px-4 lg:px-8"
                   >
                     <FontAwesomeIcon icon={faArrowRightArrowLeft} className="mr-1" />
-                    Switch network
+                    Switch
                   </button>
                 );
               }
 
               return (
-                <div className="dropdown dropdown-end ">
-                  <label tabIndex={0} className="btn bg-neutral-focus" onClick={() => setDropdownOpen(true)}>
+                <div className="dropdown dropdown-end rounded-full">
+                  <label
+                    tabIndex={0}
+                    className="btn btn-sm rounded-full px-4 lg:btn-md bg-accent text-neutral border-0 hover:bg-accent-focus focus:bg-accent-focus focus:border"
+                    onClick={() => setDropdownOpen(true)}
+                  >
                     <FontAwesomeIcon icon={faUserCircle} size="xl" className="mr-1" />
                     {profileUpdated ? profileUpdated : hasUserProfile ? profileInfo?.username : account.displayName}
                   </label>
@@ -85,13 +92,13 @@ export default function CustomConnectButton() {
                     tabIndex={0}
                     className={`${
                       !dropdownOpen ? "hidden" : ""
-                    } dropdown-content menu p-2 shadow bg-neutral rounded-box w-52`}
+                    } dropdown-content menu p-2 shadow bg-accent text-neutral rounded-box w-52`}
                   >
                     {profileUpdated ?? hasUserProfile ? (
                       <>
                         <li>
                           <Link href={`/profile/${encodeURIComponent(profileUpdated ?? profileInfo?.username)}`}>
-                            <a className="hover:bg-neutral-focus" onClick={() => setDropdownOpen(false)}>
+                            <a className="hover:bg-accent-focus" onClick={() => setDropdownOpen(false)}>
                               Show profile
                             </a>
                           </Link>
@@ -100,7 +107,7 @@ export default function CustomConnectButton() {
                     ) : (
                       <li>
                         <Link href="/profile/create">
-                          <a className="hover:bg-neutral-focus" onClick={() => setDropdownOpen(false)}>
+                          <a className="hover:bg-accent-focus" onClick={() => setDropdownOpen(false)}>
                             <FontAwesomeIcon icon={faUserPlus} />
                             Create profile
                           </a>
@@ -108,7 +115,7 @@ export default function CustomConnectButton() {
                       </li>
                     )}
                     <li>
-                      <a className="hover:bg-neutral-focus" onClick={() => disconnect()}>
+                      <a className="hover:bg-accent-focus" onClick={() => disconnect()}>
                         <FontAwesomeIcon icon={faSignOut} />
                         Disconnect
                       </a>

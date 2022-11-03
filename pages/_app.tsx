@@ -67,13 +67,11 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <WagmiConfig client={wagmiClient}>
       <ApolloProvider client={graphqlClient}>
-        <RainbowKitProvider modalSize="compact" chains={chains} theme={darkTheme({ accentColor: "#3abff8" })}>
+        <RainbowKitProvider modalSize="compact" chains={chains} theme={darkTheme({ accentColor: "#3671E9" })}>
           <ProfileContext.Provider value={{ profileUpdated: profileUpdated, setProfileUsername }}>
-            <div data-theme="night">
-              <Header />
-              <ToastContainer theme="dark" />
-              <Component {...pageProps} />
-            </div>
+            <Header />
+            <ToastContainer theme="dark" />
+            <Component {...pageProps} />
           </ProfileContext.Provider>
         </RainbowKitProvider>
       </ApolloProvider>

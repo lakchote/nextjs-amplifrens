@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";
 import CustomConnectButton from "./CustomConnectButton";
@@ -7,8 +8,7 @@ export default function Header() {
   const menuRef = useRef<HTMLDivElement | null>(null);
 
   const openMenu = () => {
-    menuRef!.current!.className = menuRef?.current?.classList.values + "w-screen h-screen opacity-95";
-    menuRef?.current?.classList.remove("opacity-0");
+    menuRef?.current?.classList.remove("opacity-0", "hidden");
     menuRef?.current?.classList.add(
       "w-screen",
       "h-screen",
@@ -16,12 +16,11 @@ export default function Header() {
       "flex",
       "justify-center",
       "items-center",
-      "bg-neutral"
+      "bg-base-100"
     );
   };
 
   const closeMenu = () => {
-    menuRef!.current!.className = menuRef?.current?.classList.remove() + "w-screen h-screen opacity-95";
     menuRef?.current?.classList.remove("w-screen", "h-screen", "opacity-95", "flex");
     menuRef?.current?.classList.add("opacity-0", "hidden");
   };
@@ -30,7 +29,7 @@ export default function Header() {
     <>
       <div ref={menuRef} className="z-1 hidden opacity-0 duration-700">
         <a
-          className="fixed top-6 right-8 text-neutral-content hover:text-primary text-5xl font-semibold duration-300"
+          className="fixed top-6 right-8 text-neutral hover:text-primary text-5xl font-semibold duration-300"
           onClick={closeMenu}
         >
           &times;
@@ -45,27 +44,40 @@ export default function Header() {
         </div>
       </div>
 
-      <nav className="navbar border-b border-b-neutral-focus bg-neutral">
+      <nav className="navbar mt-3">
         <div className="navbar-start">
-          <a className="lg:hidden px-4 text-2xl -mt-1" onClick={openMenu}>
-            &#9776;
+          <a className="lg:hidden px-4 -mt-1" onClick={openMenu}>
+            <svg
+              width="20"
+              height="20"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              className="inline-block text-neutral h-5 w-5 stroke-current md:h-6 md:w-6"
+            >
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
           </a>
           <div className="flex items-center lg:space-x-4">
-            <Link href="/">
-              <a className="lg:text-2xl text-xl font-bold lg:px-5 text-white">amplifrens</a>
-            </Link>
-            <NavLink href="/">
-              <a className="hidden rounded-md lg:inline-block align-middle pt-1 px-3 text-sm">Home</a>
-            </NavLink>
-            <NavLink href="/top-contributions">
-              <a className="hidden lg:inline-block rounded-md px-3 pt-1 text-sm hover:text-white">Explore</a>
-            </NavLink>
-            <NavLink href="/leaderboard">
-              <a className="hidden lg:inline-block rounded-md pt-1 px-3 text-sm hover:text-white">Leaderboard</a>
-            </NavLink>
+            <div className="flex items-center lg:mx-32">
+              <Image src="/images/logo.svg" width={15} height={15} alt="Amplifier" />
+              <Link href="/">
+                <a className="font-semibold text-sm lg:text-lg tracking-wider text-white ml-2">AMPLIFRENS</a>
+              </Link>
+            </div>
           </div>
         </div>
-        <div className="navbar-end lg:flex lg:px-5">
+        <div className="navbar-end lg:px-5 space-x-8">
+          <NavLink href="/">
+            <a className="hidden lg:inline-block text-neutral hover:border-b-2 hover:border-b-accent">Home</a>
+          </NavLink>
+          <NavLink href="/top-contributions">
+            <a className="hidden lg:inline-block text-neutral hover:border-b-2 hover:border-b-accent">Explore</a>
+          </NavLink>
+          <NavLink href="/leaderboard">
+            <a className="hidden lg:inline-block text-neutral hover:border-b-2 hover:border-b-accent">Leaderboard</a>
+          </NavLink>
+          <div className="hidden lg:block lg:mx-6 lg:border-r lg:border-r-gray-600">&nbsp;</div>
           <CustomConnectButton />
         </div>
       </nav>

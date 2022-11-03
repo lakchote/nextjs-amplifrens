@@ -6,6 +6,8 @@ import facadeAbi from "../../../constants/abi.json";
 import addressesJson from "../../../constants/addresses.json";
 import React, { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 export default function CreateContribution() {
   const [title, setTitle] = useState("");
@@ -53,9 +55,10 @@ export default function CreateContribution() {
     <>
       <label
         htmlFor="contribution-create-modal"
-        className="flex btn btn-accent btn-sm rounded-md items-center text-center hover:border-primary border-transparent border-2 text-sm lg:text-md"
+        className="flex btn btn-accent btn-sm rounded-full text-neutral items-center text-center hover:border-primary border-transparent border-2 text-sm lg:text-md"
         onClick={() => isDisconnected && openConnectModal?.()}
       >
+        <FontAwesomeIcon icon={faPlus} className="mr-1" />
         New contribution
       </label>
       <input type="checkbox" id="contribution-create-modal" className="modal-toggle" ref={inputToggle} />

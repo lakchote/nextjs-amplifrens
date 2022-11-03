@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 a[menu-active="true"] {
-  @apply bg-neutral-focus py-1 mt-1 font-semibold text-white;
+  @apply font-semibold;
 }
 
 .container {
-  @apply min-h-screen
+  @apply min-h-screen;
 }
