@@ -9,3 +9,23 @@ a[menu-active="true"] {
 .container {
   @apply min-h-screen;
 }
+
+.grey-6 {
+  color: #f2f2f2;
+}
+
+.grey-5 {
+  color: #e0e0e0;
+}
+
+.grey-4 {
+  color: #bdbdbd;
+}
+
+.grey-3 {
+  color: #828282;
+}
+
+.light-bg {
+  background-color: #f8f9fb;
+}

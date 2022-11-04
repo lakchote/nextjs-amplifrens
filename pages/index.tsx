@@ -9,7 +9,6 @@ import {
   GET_USER_UPVOTED_CONTRIBUTIONS,
   GET_USER_DOWNVOTED_CONTRIBUTIONS,
 } from "../constants/subgraphQueries";
-import CreateContribution from "../components/contribution/modals/CreateContribution";
 import Head from "next/head";
 import Contribution from "../components/contribution/Contribution";
 
@@ -96,21 +95,11 @@ const Home: NextPage = () => {
             <br /> Please reach out on Discord or Twitter.
           </div>
         ) : (
-          <div className="">
-            {activeContributions?.contributions?.length > 0 && (
-              <div className="flex justify-center">
-                <CreateContribution />
-              </div>
-            )}
+          <div className="lg:mt-24">
             {activeContributions?.contributions?.length === 0 && (
-              <>
-                <div className="mt-32 w-1/2 mx-auto lg:flex lg:flex-col">
-                  <h2 className="text-white text-xl mt-8 text-center">No Contributions Yet</h2>
-                </div>
-                <div className="flex justify-center mt-10">
-                  <CreateContribution />
-                </div>
-              </>
+              <div className="mt-32 w-1/2 mx-auto lg:flex lg:flex-col">
+                <h2 className="text-white text-xl mt-8 text-center">No Contributions Yet</h2>
+              </div>
             )}
             {activeContributions.contributions.map((activeContribution: ContributionInterface) => {
               return (

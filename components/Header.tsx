@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";
+import CreateContribution from "./contribution/modals/CreateContribution";
 import CustomConnectButton from "./CustomConnectButton";
 import { NavLink } from "./NavLink";
 
@@ -46,7 +47,7 @@ export default function Header() {
 
       <nav className="navbar mt-3">
         <div className="navbar-start">
-          <a className="lg:hidden px-4 -mt-1" onClick={openMenu}>
+          <a className="lg:hidden mx-3 -mt-1" onClick={openMenu}>
             <svg
               width="20"
               height="20"
@@ -60,14 +61,14 @@ export default function Header() {
           </a>
           <div className="flex items-center lg:space-x-4">
             <div className="flex items-center lg:mx-32">
-              <Image src="/images/logo.svg" width={15} height={15} alt="Amplifier" />
+              <Image src="/images/logo.svg" width={40} height={40} alt="AmpliFrens logo" className="block" />
               <Link href="/">
-                <a className="font-semibold text-sm lg:text-lg tracking-wider text-white ml-2">AMPLIFRENS</a>
+                <a className="font-semibold text-sm lg:text-lg tracking-wider text-white ml-2 lg:ml-4">AMPLIFRENS</a>
               </Link>
             </div>
           </div>
         </div>
-        <div className="navbar-end lg:px-5 space-x-8">
+        <div className="navbar-end lg:px-5 space-x-8 items-center flex">
           <NavLink href="/">
             <a className="hidden lg:inline-block text-neutral hover:border-b-2 hover:border-b-accent">Home</a>
           </NavLink>
@@ -78,7 +79,10 @@ export default function Header() {
             <a className="hidden lg:inline-block text-neutral hover:border-b-2 hover:border-b-accent">Leaderboard</a>
           </NavLink>
           <div className="hidden lg:block lg:mx-6 lg:border-r lg:border-r-gray-600">&nbsp;</div>
-          <CustomConnectButton />
+          <div className="flex space-x-4 mr">
+            <CreateContribution />
+            <CustomConnectButton />
+          </div>
         </div>
       </nav>
     </>

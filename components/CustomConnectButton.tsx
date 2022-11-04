@@ -1,18 +1,13 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useAccount, useContractRead, useDisconnect, useSwitchNetwork } from "wagmi";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faArrowRightArrowLeft,
-  faSignOut,
-  faUserAstronaut,
-  faUserCircle,
-  faUserPlus,
-} from "@fortawesome/free-solid-svg-icons";
+import { faArrowRightArrowLeft, faSignOut, faUserCircle, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { useProfileContext } from "../pages/_app";
 import Link from "next/link";
 import addressesJson from "../constants/addresses.json";
 import facadeAbi from "../constants/abi.json";
+import Image from "next/image";
 
 export default function CustomConnectButton() {
   const { switchNetwork } = useSwitchNetwork();
@@ -55,12 +50,8 @@ export default function CustomConnectButton() {
             {(() => {
               if (!connected) {
                 return (
-                  <button
-                    onClick={openConnectModal}
-                    type="button"
-                    className="btn btn-accent btn-sm lg:btn-md rounded-full text-white px-4 lg:px-8"
-                  >
-                    Connect
+                  <button onClick={openConnectModal} type="button" className="flex items-center mr-3 lg:mr-28">
+                    <Image src="/images/metamask.svg" width={22} height={22} alt="Connect Wallet" />
                   </button>
                 );
               }
@@ -70,23 +61,17 @@ export default function CustomConnectButton() {
                   <button
                     onClick={() => switchNetwork?.(parseInt(process.env.NEXT_PUBLIC_CHAIN_ID!))}
                     type="button"
-                    className="btn btn-sm lg:btn-md btn-accent rounded-full text-white px-4 lg:px-8"
+                    className="cursor-pointer flex items-center mr-3 lg:mr-28"
                   >
-                    <FontAwesomeIcon icon={faArrowRightArrowLeft} className="mr-1" />
-                    Switch
+                    <FontAwesomeIcon className="text-accent" icon={faArrowRightArrowLeft} size="lg" />
                   </button>
                 );
               }
 
               return (
                 <div className="dropdown dropdown-end rounded-full">
-                  <label
-                    tabIndex={0}
-                    className="btn btn-sm rounded-full px-4 lg:btn-md bg-accent text-neutral border-0 hover:bg-accent-focus focus:bg-accent-focus focus:border"
-                    onClick={() => setDropdownOpen(true)}
-                  >
-                    <FontAwesomeIcon icon={faUserCircle} size="xl" className="mr-1" />
-                    {profileUpdated ? profileUpdated : hasUserProfile ? profileInfo?.username : account.displayName}
+                  <label tabIndex={0} className="cursor-pointer mr-3 lg:mr-28" onClick={() => setDropdownOpen(true)}>
+                    <FontAwesomeIcon className="text-accent" icon={faUserCircle} size="xl" />
                   </label>
                   <ul
                     tabIndex={0}
