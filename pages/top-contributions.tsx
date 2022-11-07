@@ -28,14 +28,14 @@ const TopContributions: NextPage = () => {
   return (
     <>
       {networkStatus === NetworkStatus.loading ? (
-        <div className="container mt-9 lg:mt-10 text-center text-accent">Loading...</div>
+        <div className="container pt-9 lg:pt-10 text-center text-accent">Loading...</div>
       ) : errorTopContributions ? (
-        <div className="container mt-9 lg:mt-10 text-center text-accent">
+        <div className="container pt-9 lg:pt-10 text-center text-accent">
           There was an error.
           <br /> Please reach out on Discord or Twitter.
         </div>
       ) : activeTopContributions?.contributions?.length === 0 ? (
-        <div className="mt-10 flex justify-center"> No top contributions for the moment.</div>
+        <div className="pt-10 flex justify-center"> No top contributions for the moment.</div>
       ) : (
         <main className="container bg-cover pt-10">
           <div className="flex justify-center pb-4">
