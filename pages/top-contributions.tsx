@@ -9,7 +9,7 @@ import { useState } from "react";
 import { InView } from "react-intersection-observer";
 
 const TopContributions: NextPage = () => {
-  const [isFullyLoaded, setFullyLoaded] = useState(false);
+  const [isTopContributionsFullyLoaded, setTopContributionsFullyLoaded] = useState(false);
 
   const {
     networkStatus,
@@ -28,9 +28,9 @@ const TopContributions: NextPage = () => {
   return (
     <>
       {networkStatus === NetworkStatus.loading ? (
-        <div className="container pt-9 lg:pt-10 text-center text-accent">Loading...</div>
+        <div className="container pt-9 lg:pt-10 text-center text-neutral">Loading...</div>
       ) : errorTopContributions ? (
-        <div className="container pt-9 lg:pt-10 text-center text-accent">
+        <div className="container pt-9 lg:pt-10 text-center text-neutral">
           There was an error.
           <br /> Please reach out on Discord or Twitter.
         </div>
@@ -44,7 +44,7 @@ const TopContributions: NextPage = () => {
               Top contributions
             </h2>
           </div>
-          {activeTopContributions.contributions?.map((activeContribution: ContributionInterface) => (
+          {activeTopContributions?.contributions?.map((activeContribution: ContributionInterface) => (
             <Contribution
               key={activeContribution.timestamp + "-top-contribution"}
               contribution={activeContribution}
@@ -52,8 +52,8 @@ const TopContributions: NextPage = () => {
             />
           ))}
           {networkStatus !== NetworkStatus.fetchMore &&
-            activeTopContributions.contributions.length % queryPaginationOptions!.first === 0 &&
-            !isFullyLoaded && (
+            activeTopContributions?.contributions?.length % queryPaginationOptions!.first === 0 &&
+            !isTopContributionsFullyLoaded && (
               <InView
                 onChange={async (inView) => {
                   if (inView) {
@@ -62,7 +62,7 @@ const TopContributions: NextPage = () => {
                         first: activeTopContributions.contributions.length + 5,
                       },
                     });
-                    setFullyLoaded(!result.data.contributions.length);
+                    setTopContributionsFullyLoaded(!result.data.contributions.length);
                   }
                 }}
               />

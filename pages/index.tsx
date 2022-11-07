@@ -77,7 +77,7 @@ const Home: NextPage = () => {
             )}
             <div className="flex flex-column items-start justify-center lg:pr-7 text-neutral">
               <div className="w-full lg:w-2/5">
-                {activeContributions.contributions.map((activeContribution: ContributionInterface) => {
+                {activeContributions?.contributions?.map((activeContribution: ContributionInterface) => {
                   return (
                     <VoteEventsContext.Provider
                       key={activeContribution.timestamp}
@@ -88,7 +88,7 @@ const Home: NextPage = () => {
                   );
                 })}
                 {networkStatus !== NetworkStatus.fetchMore &&
-                  activeContributions.contributions.length % queryPaginationOptions!.first === 0 &&
+                  activeContributions?.contributions?.length % queryPaginationOptions!.first === 0 &&
                   !isFullyLoaded && (
                     <InView
                       onChange={async (inView) => {
