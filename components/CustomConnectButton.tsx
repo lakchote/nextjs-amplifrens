@@ -1,7 +1,7 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { useAccount, useContractRead, useDisconnect, useSwitchNetwork } from "wagmi";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRightArrowLeft, faSignOut, faUserCircle, faUserPlus } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRightArrowLeft, faEye, faSignOut, faUserCircle, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { useProfileContext } from "../pages/_app";
 import Link from "next/link";
@@ -84,6 +84,7 @@ export default function CustomConnectButton() {
                         <li>
                           <Link href={`/profile/${encodeURIComponent(profileUpdated ?? profileInfo?.username)}`}>
                             <a className="hover:bg-accent-focus" onClick={() => setDropdownOpen(false)}>
+                              <FontAwesomeIcon icon={faEye} />
                               Show profile
                             </a>
                           </Link>
