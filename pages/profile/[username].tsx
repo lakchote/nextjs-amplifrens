@@ -71,11 +71,14 @@ const ShowProfile: NextPage = () => {
         <div className="border flex-col border-gray-800 rounded-lg bg-base-100 w-full lg:w-1/2 pb-10">
           <div className="items-center text-center">
             <div className="flex pt-6 pl-4">
-              <Link href="/">
-                <a className="cursor-pointer hover:text-neutral">
-                  <FontAwesomeIcon icon={faArrowLeft} size="lg" />
-                </a>
-              </Link>
+              <a
+                className="cursor-pointer hover:text-neutral"
+                onClick={() => {
+                  router.back();
+                }}
+              >
+                <FontAwesomeIcon icon={faArrowLeft} size="lg" />
+              </a>
             </div>
             <div className="pt-6 pb-4 flex justify-center">
               <Avatar
@@ -115,7 +118,7 @@ const ShowProfile: NextPage = () => {
                 </Link>
               </div>
             )}
-            <div className="pt-8 lg:pt-6 flex flex-row justify-evenly">
+            <div className="mt-8 lg:pt-6 flex flex-row justify-evenly">
               {hasUserProfile && profileInfo && <ShowProfileSocialHandles socialHandles={profileInfo} />}
             </div>
           </div>
