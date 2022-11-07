@@ -33,6 +33,7 @@ export const GET_TOP_CONTRIBUTIONS = gql`
       orderDirection: desc
     ) {
       from
+      fromStatus
       hasProfile
       title
       url
