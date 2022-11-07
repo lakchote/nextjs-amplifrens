@@ -1,6 +1,6 @@
 import { NetworkStatus, useQuery } from "@apollo/client";
 import { GET_TOP_CONTRIBUTIONS } from "../constants/subgraphQueries";
-import { ContributionInterface } from "../interfaces/Contribution";
+import { ContributionInterface } from "../interfaces/contribution";
 import Contribution from "../components/contribution/Contribution";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrophy } from "@fortawesome/free-solid-svg-icons";

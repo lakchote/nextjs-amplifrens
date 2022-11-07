@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
 import { GET_USER_TOP_CONTRIBUTIONS } from "../../constants/subgraphQueries";
-import { ContributionInterface } from "../../interfaces/Contribution";
+import { ContributionInterface } from "../../interfaces/contribution";
 import truncateStr from "../../utils/truncate";
 import Contribution from "../../components/contribution/Contribution";
 import { useState } from "react";

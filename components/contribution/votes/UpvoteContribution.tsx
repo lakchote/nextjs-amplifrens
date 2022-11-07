@@ -6,7 +6,7 @@ import facadeAbi from "../../../constants/abi.json";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { ContributionInterface } from "../../../interfaces/Contribution";
+import { ContributionInterface } from "../../../interfaces/contribution";
 
 export default function UpvoteContribution({ contribution }: { contribution: ContributionInterface }) {
   const [clicked, setClicked] = useState(false);

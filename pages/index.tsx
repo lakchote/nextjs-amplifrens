@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import { useQuery } from "@apollo/client";
-import { ContributionInterface } from "../interfaces/Contribution";
+import { ContributionInterface } from "../interfaces/contribution";
 import { ContributionVotesInterface } from "../interfaces/ContributionVotes";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useAccount } from "wagmi";

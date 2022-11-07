@@ -1,4 +1,4 @@
-import { ContributionInterface } from "../../interfaces/Contribution";
+import { ContributionInterface } from "../../interfaces/contribution";
 import { useAccount } from "wagmi";
 import Avatar from "boring-avatars";
 import TimeAgo from "react-timeago";
