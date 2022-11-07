@@ -48,24 +48,24 @@ export default function UpdateContribution({ contributionId }: { contributionId:
     <>
       <label
         htmlFor={"contribution-update-modal" + contributionId}
-        className="hover:text-primary hover:cursor-pointer items-center text-center text-sm lg:text-md"
+        className="hover:cursor-pointer items-center text-center text-sm lg:text-md"
         onClick={() => isDisconnected && openConnectModal?.()}
       >
-        <FontAwesomeIcon icon={faRefresh} className="mr-1" /> Update contribution
+        <FontAwesomeIcon icon={faRefresh} className="mr-1" /> Update
       </label>
       <input type="checkbox" id={"contribution-update-modal" + contributionId} className="modal-toggle" />
       <div className="modal modal-bottom sm:modal-middle">
         <div className="modal-box">
           <label
             htmlFor={"contribution-update-modal" + contributionId}
-            className="btn btn-sm btn-circle btn-secondary absolute right-2 top-2"
+            className="btn btn-sm btn-circle absolute right-2 top-2"
           >
             ✕
           </label>
-          <h3 className="text-xl text-primary">Update contribution</h3>
+          <h3 className="text-xl text-neutral">Update contribution</h3>
           <form className="form-control mt-6">
             <label htmlFor="contribution-update-category" className="label max-w-lg font-semibold">
-              <span className="label-text">Category</span>
+              <span className="label-text text-accent-content">Category</span>
             </label>
             <select
               id="contribution-update-category"
@@ -79,7 +79,7 @@ export default function UpdateContribution({ contributionId }: { contributionId:
               ))}
             </select>
             <label htmlFor="contribution-update-title" className="label font-semibold">
-              <span className="label-text">Title</span>
+              <span className="label-text text-accent-content">Title</span>
             </label>
             <input
               id="contribution-update-title"
@@ -87,7 +87,7 @@ export default function UpdateContribution({ contributionId }: { contributionId:
               onChange={(e) => setTitle(e.target.value)}
             />
             <label htmlFor="contribution-update-url" className="label font-semibold">
-              <span className="label-text">URL</span>
+              <span className="label-text text-accent-content">URL</span>
             </label>
             <input
               id="contribution-update-url"
