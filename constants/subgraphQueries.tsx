@@ -10,6 +10,7 @@ export const GET_CONTRIBUTIONS = gql`
       orderDirection: desc
     ) {
       from
+      fromStatus
       hasProfile
       title
       url
@@ -55,6 +56,7 @@ export const GET_USER_TOP_CONTRIBUTIONS = gql`
       orderDirection: desc
     ) {
       from
+      fromStatus
       hasProfile
       title
       url
@@ -71,14 +73,6 @@ export const GET_USER_TOP_CONTRIBUTIONS = gql`
 export const GET_USER_UPVOTED_CONTRIBUTIONS = gql`
   query UserUpvotedContributions($address: Bytes!) {
     contributionUpvoteds(where: { from: $address }) {
-      contributionId
-    }
-  }
-`;
-
-export const GET_USER_DOWNVOTED_CONTRIBUTIONS = gql`
-  query UserDownvotedContributions($address: Bytes!) {
-    contributionDownvoteds(where: { from: $address }) {
       contributionId
     }
   }
