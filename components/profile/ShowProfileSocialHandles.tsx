@@ -2,56 +2,54 @@ import { ReadContractResult } from "@wagmi/core";
 
 export default function ShowProfileSocialHandles({ socialHandles }: { socialHandles: ReadContractResult }) {
   return (
-    <div className="flex flex-col my-5">
+    <div className="flex lg:flex-row lg:space-x-6 space-x-4">
       {socialHandles.lensHandle && (
         <>
-          <a
-            className="btn bg-gradient-to-r from-base-100 mt-3 hover:border hover:border-secondary"
-            href={`https://lenster.xyz/u/${socialHandles.lensHandle}`}
-          >
-            🌿 Lens
+          <a href={`https://lenster.xyz/u/${socialHandles.lensHandle}`} className="flex flex-col hover:text-neutral">
+            <span>🌿</span>
+            <span>Lens</span>
           </a>
         </>
       )}
       {socialHandles.twitterHandle && (
         <>
           <a
-            className="btn bg-gradient-to-r from-base-100 mt-3 hover:border hover:border-secondary"
+            className="flex flex-col hover:text-neutral"
             href={`https://www.twitter.com/${socialHandles.twitterHandle}`}
           >
-            🐦 Twitter
+            <span>🐦</span>
+            <span>Twitter</span>
           </a>
         </>
       )}
       {socialHandles.discordHandle && (
         <>
-          <span
-            className="btn bg-gradient-to-r from-base-100 mt-3 hover:border hover:border-secondary"
+          <a
+            className="flex flex-col cursor-pointer hover:text-neutral"
             onClick={(e) => {
-              navigator.clipboard.writeText(e.currentTarget.innerText.slice(2));
+              navigator.clipboard.writeText(socialHandles.discordHandle);
+              e.currentTarget.innerHTML = "<span>🤖</span><span>Copied to clipboard!</span>";
+              e.currentTarget.classList.add("text-accent-content");
             }}
           >
-            🤖 {socialHandles.discordHandle}{" "}
-          </span>
+            <span>🤖</span>
+            <span>Discord</span>
+          </a>
         </>
       )}
       {socialHandles.websiteUrl && (
         <>
-          <a
-            className="btn bg-gradient-to-r from-base-100 mt-3 hover:border hover:border-secondary"
-            href={socialHandles.websiteUrl}
-          >
-            🌐 Website
+          <a className="flex flex-col hover:text-neutral" href={socialHandles.websiteUrl}>
+            <span>🌐</span>
+            <span>Website</span>
           </a>
         </>
       )}
       {socialHandles.email && (
         <>
-          <a
-            className="btn bg-gradient-to-r from-base-100 mt-3 hover:border hover:border-secondary"
-            href={`mailto:${socialHandles.email}`}
-          >
-            ✉️ Email
+          <a className="flex flex-col hover:text-neutral" href={`mailto:${socialHandles.email}`}>
+            <span>✉️ </span>
+            <span>Email</span>
           </a>
         </>
       )}

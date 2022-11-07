@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { faTrophy } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faTrophy } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { NextPage } from "next";
 import { useRouter } from "next/router";
@@ -11,8 +11,8 @@ import addressesJson from "../../constants/addresses.json";
 import facadeAbi from "../../constants/abi.json";
 import ShowProfileSocialHandles from "../../components/profile/ShowProfileSocialHandles";
 import statusesMapping from "../../constants/statusMapping";
-import BackToHomepage from "../../components/BackToHomepage";
 import Link from "next/link";
+import Avatar from "boring-avatars";
 
 const ShowProfile: NextPage = () => {
   const router = useRouter();
@@ -65,13 +65,28 @@ const ShowProfile: NextPage = () => {
   }, [getProfileAddress, username]);
 
   return (
-    <main className="container">
+    <main className="container pt-6 px-2 lg:p-10 bg-cover">
       <div className="flex justify-center">
         {loadingGetProfileAddress && <div className="h-screen text-accent">Loading...</div>}
-        <div className="card bg-gradient-to-r from-base-100 to-neutral border-t-accent border-b-accent border border-l-neutral border-r-neutral  w-full lg:w-1/2 p-2 m-2 mt-8">
-          <div className="card-body items-center text-center">
-            <h2 className="card-title text-2xl lg:text-3xl mb-2">
-              <span className="text-primary">
+        <div className="border flex-col border-gray-800 rounded-lg bg-base-100 w-full lg:w-1/2 pb-10">
+          <div className="items-center text-center">
+            <div className="flex pt-6 pl-4">
+              <Link href="/">
+                <a className="cursor-pointer hover:text-neutral">
+                  <FontAwesomeIcon icon={faArrowLeft} size="lg" />
+                </a>
+              </Link>
+            </div>
+            <div className="pt-6 pb-4 flex justify-center">
+              <Avatar
+                size={100}
+                name={profileInfo?.username ?? username}
+                variant="beam"
+                colors={["#4610AD", "#5F74EA", "#491F98", "#35068C", "#491F98", "#D1E0FF"]}
+              />
+            </div>
+            <h2 className="text-2xl lg:text-3xl mb-2">
+              <span className="text-neutral">
                 {profileInfo?.username
                   ? profileInfo!.username
                   : profileAddress === "" && username
@@ -79,34 +94,30 @@ const ShowProfile: NextPage = () => {
                   : username}
               </span>
             </h2>
-            {loadingSbtCount && <div className="text-accent">Loading...</div>}
-            {!sbtCountData?.sbtleaderboards[0] && (
-              <span className="badge badge-default block mx-auto mt-2">
-                {statusesMapping[parseInt(statusInfo?.toString() ?? "0")]}
-              </span>
-            )}
+            {loadingSbtCount && <div className="text-neutral">Loading...</div>}
+            <span className="badge badge-accent block mx-auto mt-2">
+              {statusesMapping[parseInt(statusInfo?.toString() ?? "0")]}
+            </span>
             {sbtCountData?.sbtleaderboards[0] && (
-              <div className="my-8 bg-gradient-to-r from-neutral to-accent rounded-md p-8">
+              <div className="pt-6">
                 <FontAwesomeIcon icon={faTrophy} className="text-yellow-400 mr-2" />
                 <Link
                   href={{
                     pathname: "/top-contributions/[username]",
-                    query: { username: addressToQuery, profile: profileInfo?.username },
+                    query: { username: addressToQuery },
                   }}
                 >
-                  <a className="font-semibold cursor-pointer text-secondary hover:text-secondary-focus">
+                  <a className="font-semibold cursor-pointer text-accent-content hover:text-neutral">
                     {sbtCountData.sbtleaderboards[0].topContributionsCount > 1
                       ? sbtCountData.sbtleaderboards[0].topContributionsCount + " top contributions"
                       : sbtCountData.sbtleaderboards[0].topContributionsCount + " top contribution"}
                   </a>
                 </Link>
-                <span className="badge badge-default block mx-auto mt-2">
-                  {statusesMapping[parseInt(statusInfo?.toString() ?? "0")]}
-                </span>
               </div>
             )}
-            {hasUserProfile && profileInfo && <ShowProfileSocialHandles socialHandles={profileInfo} />}
-            <BackToHomepage />
+            <div className="pt-8 lg:pt-6 flex flex-row justify-evenly">
+              {hasUserProfile && profileInfo && <ShowProfileSocialHandles socialHandles={profileInfo} />}
+            </div>
           </div>
         </div>
       </div>
