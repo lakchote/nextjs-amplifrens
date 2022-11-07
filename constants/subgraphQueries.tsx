@@ -97,11 +97,10 @@ export const GET_SBT_COUNT = gql`
 
 export const GET_SBT_LEADERBOARD = gql`
   query GetSBTLeaderboardAddresses {
-    sbtleaderboards(orderBy: topContributionsCount, orderDirection: desc, first: 3) {
+    sbtleaderboards(orderBy: topContributionsCount, orderDirection: desc, first: 5) {
       id
       topContributionsCount
       username
-      status
     }
   }
 `;
