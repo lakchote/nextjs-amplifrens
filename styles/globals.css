@@ -10,22 +10,12 @@ a[menu-active="true"] {
   @apply min-h-screen;
 }
 
-.grey-6 {
-  color: #f2f2f2;
+.bg-cover {
+  background: url("/images/bg-cover.png") no-repeat center center fixed;
+  background-size: cover;
 }
 
-.grey-5 {
-  color: #e0e0e0;
-}
-
-.grey-4 {
-  color: #bdbdbd;
-}
-
-.grey-3 {
-  color: #828282;
-}
-
-.light-bg {
-  background-color: #f8f9fb;
+.bg-contribution-title {
+  background: url("/images/bg-contribution-title.jpg") no-repeat bottom scroll;
+  background-size: cover;
 }
