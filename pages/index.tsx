@@ -62,9 +62,9 @@ const Home: NextPage = () => {
       </Head>
       <main>
         {networkStatus === NetworkStatus.loading ? (
-          <div className="mt-8 lg:mt-10 text-center text-accent container">Loading...</div>
+          <div className="mt-9 lg:mt-10 text-center text-neutral container">Loading...</div>
         ) : errorContributions ? (
-          <div className="mt-8 lg:mt-10 text-center text-accent container">
+          <div className="mt-9 lg:mt-10 text-center text-neutral container">
             There was an error.
             <br /> Please reach out on Discord or Twitter.
           </div>
