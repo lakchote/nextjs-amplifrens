@@ -1,21 +1,20 @@
-import { faThumbsUp } from "@fortawesome/free-solid-svg-icons";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { usePrepareContractWrite, useContractWrite, useAccount, useWaitForTransaction } from "wagmi";
-import { useVoteContext } from "../../../pages";
 import addressesJson from "../../../constants/addresses.json";
 import facadeAbi from "../../../constants/abi.json";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { ContributionInterface } from "../../../interfaces/Contribution";
 
-export default function UpvoteContribution({ contributionId }: { contributionId: number }) {
-  const { upvoted } = useVoteContext();
+export default function UpvoteContribution({ contribution }: { contribution: ContributionInterface }) {
   const [clicked, setClicked] = useState(false);
   const { config: upvoteConfig } = usePrepareContractWrite({
     addressOrName: addressesJson[process.env.NEXT_PUBLIC_CHAIN_ID as keyof typeof addressesJson].address,
     contractInterface: facadeAbi,
     functionName: "upvoteContribution",
-    args: [contributionId],
+    args: [contribution?.contributionId],
     enabled: clicked,
   });
 
@@ -44,15 +43,8 @@ export default function UpvoteContribution({ contributionId }: { contributionId:
   };
 
   return (
-    <a
-      className={
-        upvoted.includes(contributionId)
-          ? "text-primary mx-2.5 hover:cursor-not-allowed"
-          : "mx-2.5 hover:text-accent hover:cursor-pointer"
-      }
-      onClick={() => handleVote()}
-    >
-      <FontAwesomeIcon icon={faThumbsUp} /> Like
-    </a>
+    <>
+      <FontAwesomeIcon className="hover:text-accent hover:cursor-pointer" onClick={() => handleVote()} icon={faHeart} />
+    </>
   );
 }
