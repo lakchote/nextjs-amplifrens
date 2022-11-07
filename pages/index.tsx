@@ -4,30 +4,28 @@ import { ContributionInterface } from "../interfaces/Contribution";
 import { ContributionVotesInterface } from "../interfaces/ContributionVotes";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useAccount } from "wagmi";
-import {
-  GET_CONTRIBUTIONS,
-  GET_USER_UPVOTED_CONTRIBUTIONS,
-  GET_USER_DOWNVOTED_CONTRIBUTIONS,
-} from "../constants/subgraphQueries";
+import { NetworkStatus } from "@apollo/client";
+import { InView } from "react-intersection-observer";
+import { GET_CONTRIBUTIONS, GET_USER_UPVOTED_CONTRIBUTIONS } from "../constants/subgraphQueries";
 import Head from "next/head";
 import Contribution from "../components/contribution/Contribution";
 
-const VoteEventsContext = createContext<{ upvoted: Number[]; downvoted: Number[] }>({ upvoted: [], downvoted: [] });
+const VoteEventsContext = createContext<{ upvoted: Number[] }>({ upvoted: [] });
 
 const Home: NextPage = () => {
   const [upvotedEventContributionIds, setUpvotedEventContributionIds] = useState<Number[]>([]);
-  const [downvotedEventContributionIds, setDownvotedEventContributionIds] = useState<Number[]>([]);
   const { address } = useAccount();
+  const [isFullyLoaded, setFullyLoaded] = useState(false);
 
   const {
-    loading: loadingContributions,
+    networkStatus,
     error: errorContributions,
     data: activeContributions,
     variables: queryPaginationOptions,
-    refetch,
+    fetchMore,
     startPolling: startPollContributions,
-    stopPolling: stopPollContributions,
   } = useQuery(GET_CONTRIBUTIONS, {
+    notifyOnNetworkStatusChange: true,
     variables: {
       first: 5,
       skip: 0,
@@ -38,17 +36,8 @@ const Home: NextPage = () => {
       address: address ?? "",
     },
   });
-  const { data: userDownvotedContributions, startPolling: startPollDownvotes } = useQuery(
-    GET_USER_DOWNVOTED_CONTRIBUTIONS,
-    {
-      variables: {
-        address: address ?? "",
-      },
-    }
-  );
 
   startPollUpvotes(parseInt(process.env.NEXT_PUBLIC_POLL_UPVOTES!));
-  startPollDownvotes(parseInt(process.env.NEXT_PUBLIC_POLL_DOWNVOTES!));
   startPollContributions(parseInt(process.env.NEXT_PUBLIC_POLL_CONTRIBUTIONS!));
 
   useEffect(() => {
@@ -59,22 +48,7 @@ const Home: NextPage = () => {
         )
       );
     }
-    if (userDownvotedContributions) {
-      setDownvotedEventContributionIds(
-        userDownvotedContributions.contributionDownvoteds.map(
-          (contribution: ContributionVotesInterface) => contribution.contributionId
-        )
-      );
-    }
-  }, [userUpvotedContributions, userDownvotedContributions]);
-
-  const handlePagination = () => {
-    stopPollContributions();
-    refetch({
-      first: queryPaginationOptions ? queryPaginationOptions.first + 5 : 5,
-    });
-    startPollContributions(1000);
-  };
+  }, [userUpvotedContributions]);
 
   return (
     <div>
@@ -86,8 +60,8 @@ const Home: NextPage = () => {
         />
         <link rel="icon" href="favicon.ico" />
       </Head>
-      <main className="max-w-full">
-        {loadingContributions ? (
+      <main>
+        {networkStatus === NetworkStatus.loading ? (
           <div className="mt-8 lg:mt-10 text-center text-accent container">Loading...</div>
         ) : errorContributions ? (
           <div className="mt-8 lg:mt-10 text-center text-accent container">
@@ -95,28 +69,41 @@ const Home: NextPage = () => {
             <br /> Please reach out on Discord or Twitter.
           </div>
         ) : (
-          <div className="lg:mt-24">
+          <div className="lg:p-10 pt-9 lg:container bg-cover min-h-screen lg:max-w-full">
             {activeContributions?.contributions?.length === 0 && (
               <div className="mt-32 w-1/2 mx-auto lg:flex lg:flex-col">
                 <h2 className="text-white text-xl mt-8 text-center">No Contributions Yet</h2>
               </div>
             )}
-            {activeContributions.contributions.map((activeContribution: ContributionInterface) => {
-              return (
-                <VoteEventsContext.Provider
-                  key={activeContribution.timestamp}
-                  value={{ upvoted: upvotedEventContributionIds, downvoted: downvotedEventContributionIds }}
-                >
-                  <Contribution contribution={activeContribution} hasVoteActions={true} />
-                </VoteEventsContext.Provider>
-              );
-            })}
-            <div className="flex justify-center">
-              {activeContributions?.contributions?.length !== 0 && activeContributions.contributions.length % 5 === 0 && (
-                <button className="btn btn-accent mb-5" onClick={handlePagination}>
-                  More
-                </button>
-              )}
+            <div className="flex flex-column items-start justify-center lg:pr-7 text-neutral">
+              <div className="w-full lg:w-2/5">
+                {activeContributions.contributions.map((activeContribution: ContributionInterface) => {
+                  return (
+                    <VoteEventsContext.Provider
+                      key={activeContribution.timestamp}
+                      value={{ upvoted: upvotedEventContributionIds }}
+                    >
+                      <Contribution contribution={activeContribution} hasVoteActions={true} />
+                    </VoteEventsContext.Provider>
+                  );
+                })}
+                {networkStatus !== NetworkStatus.fetchMore &&
+                  activeContributions.contributions.length % queryPaginationOptions!.first === 0 &&
+                  !isFullyLoaded && (
+                    <InView
+                      onChange={async (inView) => {
+                        if (inView) {
+                          const result = await fetchMore({
+                            variables: {
+                              first: activeContributions.contributions.length + 5,
+                            },
+                          });
+                          setFullyLoaded(!result.data.contributions.length);
+                        }
+                      }}
+                    />
+                  )}
+              </div>
             </div>
           </div>
         )}

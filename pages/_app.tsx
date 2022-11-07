@@ -12,6 +12,7 @@ import "@rainbow-me/rainbowkit/styles.css";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import "react-toastify/dist/ReactToastify.min.css";
 import { createContext, Dispatch, SetStateAction, useContext, useState } from "react";
+import { offsetLimitPagination } from "@apollo/client/utilities";
 
 config.autoAddCss = false;
 
@@ -20,12 +21,10 @@ const graphqlClient = new ApolloClient({
     typePolicies: {
       Query: {
         fields: {
-          contributionDownvoteds: {
-            merge: false,
-          },
           contributionUpvoteds: {
             merge: false,
           },
+          contributions: offsetLimitPagination(),
         },
       },
     },
