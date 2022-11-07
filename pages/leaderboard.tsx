@@ -1,81 +1,76 @@
 import { useQuery } from "@apollo/client";
 import { GET_SBT_LEADERBOARD } from "../constants/subgraphQueries";
-import statusesMapping from "../constants/statusMapping";
 import Link from "next/link";
 import { NextPage } from "next";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrophy } from "@fortawesome/free-solid-svg-icons";
 
 const Leaderboard: NextPage = () => {
   const {
     loading: loadingLeaderboardAddresses,
     error: errorLeaderboardAddresses,
     data: leaderboardAddresses,
-    refetch,
   } = useQuery(GET_SBT_LEADERBOARD);
+
+  const handleDisplayTopLeaderboard = (index: number) => {
+    if (index > 2) {
+      return <span className="btn btn-xs border-none btn-accent btn-circle mr-4">{index + 1}</span>;
+    }
+    return index === 0 ? (
+      <span className="btn btn-xs border-none bg-yellow-400 btn-circle mr-4">{index + 1}</span>
+    ) : index === 1 ? (
+      <span className="btn btn-xs border-none bg-gray-400 btn-circle mr-4">{index + 1}</span>
+    ) : (
+      <span className="btn btn-xs border-none text-neutral bg-amber-700 btn-circle mr-4">{index + 1}</span>
+    );
+  };
 
   return (
     <>
       {loadingLeaderboardAddresses ? (
-        <div className="container mt-8 lg:mt-10 text-center text-accent">Loading...</div>
+        <div className="container pt-9 lg:pt-10 text-center text-neutral">Loading...</div>
       ) : errorLeaderboardAddresses ? (
-        <div className="container mt-8 lg:mt-10 text-center text-accent">
+        <div className="container pt-9 lg:pt-10 text-center text-neutral">
           There was an error.
           <br /> Please reach out on Discord or Twitter.
         </div>
       ) : leaderboardAddresses?.sbtleaderboards?.length === 0 ? (
-        <div className="mt-10 flex justify-center"> No top contributions have been minted yet. Wait for tomorrow !</div>
+        <div className="pt-10 flex justify-center"> No top contributions have been minted yet. Wait for tomorrow !</div>
       ) : (
-        <main className="container mt-8 lg:mt-10">
-          <div className="flex justify-center">
-            <h2 className="text-xl lg:text-3xl text-primary">✨ Leaderboard</h2>
-          </div>
-          <div className="overflow-x-auto flex justify-center mt-16">
-            <table className="table flex justify-center border-secondary border-b-2 border-x-secondary">
-              <thead>
-                <tr>
-                  <th>🏆</th>
-                  <th className="text-center text-secondary">Name</th>
-                  <th className="text-center text-secondary">Status</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {leaderboardAddresses?.sbtleaderboards.map(
-                  (
-                    address: { id: string; username: string | null; status: number; topContributionsCount: number },
-                    index: number
-                  ) => {
-                    return (
-                      <tr key={index}>
-                        <td className="text-center">{index + 1}</td>
-                        <td>
-                          {address.username ? (
-                            <>
-                              <Link href={`/profile/${encodeURIComponent(address.username)}`}>
-                                <a className="text-accent text-center">{address.username}</a>
-                              </Link>
-                            </>
-                          ) : (
-                            <>{address.id}</>
-                          )}
-                        </td>
-                        <td className="align-middle">
-                          <span className="badge badge-default block">{statusesMapping[address.status]}</span>
-                        </td>
-                        <td>
-                          <Link href={`/top-contributions/${encodeURIComponent(address.id)}`}>
-                            <a className="btn btn-accent btn-xs">
-                              {address.topContributionsCount}
-                              {address.topContributionsCount > 1 ? " contributions" : " contribution"}
-                            </a>
+        <main className="container px-2 pt-9 lg:pt-10 leaderboard-container bg-cover">
+          <div className="flex w-full lg:w-4/12 mx-auto border rounded-sm border-gray-800 bg-base-100 leaderboard flex-col justify-center">
+            <div className="p-5 flex items-center bg-base-100 text-xl tracking-wider border-b border-gray-800">
+              <FontAwesomeIcon icon={faTrophy} className="text-yellow-400 mr-2" />
+              Most valuable Contributoors
+            </div>
+            <div className="bg-gradient-to-r from-secondary to-accent">
+              {leaderboardAddresses?.sbtleaderboards.map(
+                (
+                  address: { id: string; username: string | null; status: number; topContributionsCount: number },
+                  index: number
+                ) => {
+                  return (
+                    <div className="flex flex-row py-5 pl-4 pb" key={index}>
+                      {handleDisplayTopLeaderboard(index)}
+                      {address.username ? (
+                        <>
+                          <Link href={`/profile/${encodeURIComponent(address.username)}`}>
+                            <a className="text-neutral text-center">{address.username}</a>
                           </Link>
-                        </td>
-                      </tr>
-                    );
-                  }
-                )}
-              </tbody>
-              <tfoot></tfoot>
-            </table>
+                        </>
+                      ) : (
+                        <>{address.id}</>
+                      )}
+                      <div className="flex w-full justify-end pr-4">
+                        <Link href={`/top-contributions/${encodeURIComponent(address.id)}`}>
+                          <a className="">{address.topContributionsCount}</a>
+                        </Link>
+                      </div>
+                    </div>
+                  );
+                }
+              )}
+            </div>
           </div>
         </main>
       )}
