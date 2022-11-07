@@ -38,11 +38,20 @@ export default function Header() {
           &times;
         </a>
         <div className="flex flex-col text-white text-center text-xl font-light space-y-3">
+          <Link href="/">
+            <a className="px-2" onClick={closeMenu}>
+              Home
+            </a>
+          </Link>
           <Link href="/top-contributions">
-            <a className="px-2 text-md">Top contributions</a>
+            <a className="px-2" onClick={closeMenu}>
+              Explore
+            </a>
           </Link>
           <Link href="/leaderboard">
-            <a className="px-2">Leaderboard</a>
+            <a className="px-2" onClick={closeMenu}>
+              Leaderboard
+            </a>
           </Link>
         </div>
       </div>
