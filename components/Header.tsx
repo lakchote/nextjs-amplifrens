@@ -1,3 +1,5 @@
+import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";
@@ -44,22 +46,12 @@ export default function Header() {
           </Link>
         </div>
       </div>
-
-      <nav className="navbar mt-3">
+      <nav className="navbar lg:my-3">
         <div className="navbar-start">
-          <a className="lg:hidden mx-3 -mt-1" onClick={openMenu}>
-            <svg
-              width="20"
-              height="20"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              className="inline-block text-neutral h-5 w-5 stroke-current md:h-6 md:w-6"
-            >
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-            </svg>
+          <a className="lg:hidden mx-3" onClick={openMenu}>
+            <FontAwesomeIcon icon={faBars} size="lg" width={22} />
           </a>
-          <div className="flex items-center lg:space-x-4">
+          <div className="lg:space-x-4">
             <div className="flex items-center lg:mx-32">
               <Image src="/images/logo.svg" width={40} height={40} alt="AmpliFrens logo" className="block" />
               <Link href="/">
@@ -68,7 +60,7 @@ export default function Header() {
             </div>
           </div>
         </div>
-        <div className="navbar-end lg:px-5 space-x-8 items-center flex">
+        <div className="navbar-end lg:px-5 space-x-8">
           <NavLink href="/">
             <a className="hidden lg:inline-block text-neutral hover:border-b-2 hover:border-b-accent">Home</a>
           </NavLink>
@@ -79,7 +71,7 @@ export default function Header() {
             <a className="hidden lg:inline-block text-neutral hover:border-b-2 hover:border-b-accent">Leaderboard</a>
           </NavLink>
           <div className="hidden lg:block lg:mx-6 lg:border-r lg:border-r-gray-600">&nbsp;</div>
-          <div className="flex space-x-4 mr">
+          <div className="flex space-x-4">
             <CreateContribution />
             <CustomConnectButton />
           </div>

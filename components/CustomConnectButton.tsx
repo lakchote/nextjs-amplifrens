@@ -51,7 +51,7 @@ export default function CustomConnectButton() {
               if (!connected) {
                 return (
                   <button onClick={openConnectModal} type="button" className="flex items-center mr-3 lg:mr-28">
-                    <Image src="/images/metamask.svg" width={22} height={22} alt="Connect Wallet" />
+                    <Image src="/images/metamask.svg" width={25} height={25} alt="Connect Wallet" />
                   </button>
                 );
               }
@@ -71,7 +71,7 @@ export default function CustomConnectButton() {
               return (
                 <div className="dropdown dropdown-end rounded-full">
                   <label tabIndex={0} className="cursor-pointer mr-3 lg:mr-28" onClick={() => setDropdownOpen(true)}>
-                    <FontAwesomeIcon className="text-accent" icon={faUserCircle} size="xl" />
+                    <FontAwesomeIcon className="text-accent-content" icon={faUserCircle} size="xl" />
                   </label>
                   <ul
                     tabIndex={0}
