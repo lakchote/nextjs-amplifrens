@@ -71,9 +71,7 @@ const Home: NextPage = () => {
         ) : (
           <div className="lg:p-10 pt-9 lg:container bg-cover min-h-screen lg:max-w-full">
             {activeContributions?.contributions?.length === 0 && (
-              <div className="mt-32 w-1/2 mx-auto lg:flex lg:flex-col">
-                <h2 className="text-white text-xl mt-8 text-center">No Contributions Yet</h2>
-              </div>
+              <h2 className="text-white text-xl mt-8 text-center">No Contributions Yet</h2>
             )}
             <div className="flex flex-column items-start justify-center lg:pr-7 text-neutral">
               <div className="w-full lg:w-2/5">
