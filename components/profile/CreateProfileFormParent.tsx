@@ -12,7 +12,7 @@ export default function CreateProfileFormParent() {
       <div className="flex justify-center">
         <ul className="steps steps-vertical lg:steps-horizontal mt-10">
           <li className={`step ${showParentForm && "step-accent text-neutral"}`}>General</li>
-          <li className={`step ${!showParentForm && "step-accent"}`}>Social</li>
+          <li className={`step ${!showParentForm && "step-accent text-neutral"}`}>Social</li>
         </ul>
       </div>
       <div className="flex justify-center">
