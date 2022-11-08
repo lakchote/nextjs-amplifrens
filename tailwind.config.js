@@ -9,15 +9,11 @@ module.exports = {
     themes: [
       {
         amplifrens: {
-          primary: "#fefdfd",
-          secondary: "#d9bcef",
-          accent: "#5f43b2",
-          neutral: "#240839",
-          "base-100": "#010101",
-          info: "#0CA6E9",
-          success: "#2BD4BD",
-          warning: "#F4C152",
-          error: "#FB6F84",
+          primary: "#0D0D2B",
+          secondary: "#2B076E",
+          accent: "#3671E9",
+          neutral: "#FFFFFF",
+          "base-100": "#0D0D2B",
         },
       },
     ],

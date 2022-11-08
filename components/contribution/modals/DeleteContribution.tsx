@@ -41,21 +41,21 @@ export default function DeleteContribution({ contributionId }: { contributionId:
     <>
       <label
         htmlFor={"contribution-delete-modal" + contributionId}
-        className="hover:text-primary hover:cursor-pointer items-center text-center text-sm lg:text-md"
+        className="hover:cursor-pointer items-center text-center text-sm lg:text-md"
         onClick={() => isDisconnected && openConnectModal?.()}
       >
-        <FontAwesomeIcon icon={faRemove} className="mr-1" /> Delete contribution
+        <FontAwesomeIcon icon={faRemove} className="mr-1" /> Delete
       </label>
       <input type="checkbox" id={"contribution-delete-modal" + contributionId} className="modal-toggle" />
       <div className="modal modal-bottom sm:modal-middle">
         <div className="modal-box">
           <label
             htmlFor={"contribution-delete-modal" + contributionId}
-            className="btn btn-sm btn-circle btn-secondary absolute right-2 top-2"
+            className="btn btn-sm btn-circle absolute right-2 top-2"
           >
             ✕
           </label>
-          <h3 className="text-xl text-primary mb-6">Delete contribution</h3>
+          <h3 className="text-xl text-neutral mb-6">Delete contribution</h3>
           <p>
             Deleting a contribution is <strong>irreversible</strong>.
           </p>

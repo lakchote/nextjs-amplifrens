@@ -1,14 +1,16 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
-import { useAccount, useContractRead, useDisconnect } from "wagmi";
+import { useAccount, useContractRead, useDisconnect, useSwitchNetwork } from "wagmi";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRightArrowLeft, faEye, faSignOut, faUserCircle, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { useProfileContext } from "../pages/_app";
 import Link from "next/link";
 import addressesJson from "../constants/addresses.json";
 import facadeAbi from "../constants/abi.json";
+import Image from "next/image";
 
 export default function CustomConnectButton() {
+  const { switchNetwork } = useSwitchNetwork();
   const { profileUpdated } = useProfileContext();
   const { disconnect } = useDisconnect();
   const { address } = useAccount();
@@ -32,7 +34,7 @@ export default function CustomConnectButton() {
 
   return (
     <ConnectButton.Custom>
-      {({ account, chain, mounted, openChainModal, openConnectModal }) => {
+      {({ account, chain, mounted, openConnectModal }) => {
         const connected = account && chain && mounted;
         return (
           <div
@@ -48,37 +50,41 @@ export default function CustomConnectButton() {
             {(() => {
               if (!connected) {
                 return (
-                  <button onClick={openConnectModal} type="button" className="btn btn-neutral btn-sm lg:btn-md">
-                    Connect
+                  <button onClick={openConnectModal} type="button" className="flex items-center mr-3 lg:mr-28">
+                    <Image src="/images/metamask.svg" width={25} height={25} alt="Connect Wallet" />
                   </button>
                 );
               }
 
               if (chain.unsupported) {
                 return (
-                  <button onClick={openChainModal} type="button" className="btn btn-accent btn-sm lg:btn-md">
-                    Wrong network
+                  <button
+                    onClick={() => switchNetwork?.(parseInt(process.env.NEXT_PUBLIC_CHAIN_ID!))}
+                    type="button"
+                    className="cursor-pointer flex items-center mr-3 lg:mr-28"
+                  >
+                    <FontAwesomeIcon className="text-accent" icon={faArrowRightArrowLeft} size="lg" />
                   </button>
                 );
               }
 
               return (
-                <div className="dropdown dropdown-end">
-                  <label tabIndex={0} className="btn m-1" onClick={() => setDropdownOpen(true)}>
-                    <FontAwesomeIcon icon={faUserCircle} size="xl" className="text-secondary mr-1" />
-                    {profileUpdated ? profileUpdated : hasUserProfile ? profileInfo?.username : account.displayName}
+                <div className="dropdown dropdown-end rounded-full">
+                  <label tabIndex={0} className="cursor-pointer mr-3 lg:mr-28" onClick={() => setDropdownOpen(true)}>
+                    <FontAwesomeIcon className="text-accent-content" icon={faUserCircle} size="xl" />
                   </label>
                   <ul
                     tabIndex={0}
                     className={`${
                       !dropdownOpen ? "hidden" : ""
-                    } dropdown-content menu p-2 shadow bg-neutral rounded-box w-52`}
+                    } dropdown-content menu p-2 shadow bg-accent text-neutral rounded-box w-52`}
                   >
                     {profileUpdated ?? hasUserProfile ? (
                       <>
                         <li>
                           <Link href={`/profile/${encodeURIComponent(profileUpdated ?? profileInfo?.username)}`}>
-                            <a className="hover:text-white" onClick={() => setDropdownOpen(false)}>
+                            <a className="hover:bg-accent-focus" onClick={() => setDropdownOpen(false)}>
+                              <FontAwesomeIcon icon={faEye} />
                               Show profile
                             </a>
                           </Link>
@@ -87,15 +93,16 @@ export default function CustomConnectButton() {
                     ) : (
                       <li>
                         <Link href="/profile/create">
-                          <a className="hover:text-white" onClick={() => setDropdownOpen(false)}>
+                          <a className="hover:bg-accent-focus" onClick={() => setDropdownOpen(false)}>
+                            <FontAwesomeIcon icon={faUserPlus} />
                             Create profile
                           </a>
                         </Link>
                       </li>
                     )}
-                    <div className="divider my-1"></div>
                     <li>
-                      <a className="btn btn-sm btn-accent text-white align-top p-1" onClick={() => disconnect()}>
+                      <a className="hover:bg-accent-focus" onClick={() => disconnect()}>
+                        <FontAwesomeIcon icon={faSignOut} />
                         Disconnect
                       </a>
                     </li>

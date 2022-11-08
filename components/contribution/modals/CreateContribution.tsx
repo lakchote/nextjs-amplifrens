@@ -6,6 +6,7 @@ import facadeAbi from "../../../constants/abi.json";
 import addressesJson from "../../../constants/addresses.json";
 import React, { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
+import Image from "next/image";
 
 export default function CreateContribution() {
   const [title, setTitle] = useState("");
@@ -51,30 +52,23 @@ export default function CreateContribution() {
 
   return (
     <>
-      <label
-        htmlFor="contribution-create-modal"
-        className="flex btn btn-accent btn-sm rounded-md items-center text-center hover:border-primary border-transparent border-2 text-sm lg:text-md text-primary"
-        onClick={() => isDisconnected && openConnectModal?.()}
-      >
-        New contribution
+      <label htmlFor="contribution-create-modal" className="hover:text-accent items-center flex cursor-pointer">
+        <Image src="/images/plus.svg" width={22} height={22} alt="Post a News" />
       </label>
       <input type="checkbox" id="contribution-create-modal" className="modal-toggle" ref={inputToggle} />
       <div className="modal modal-bottom sm:modal-middle">
         <div className="modal-box">
-          <label
-            htmlFor="contribution-create-modal"
-            className="btn btn-sm btn-circle btn-secondary absolute right-2 top-2"
-          >
+          <label htmlFor="contribution-create-modal" className="btn btn-sm btn-circle absolute right-2 top-2">
             ✕
           </label>
-          <h3 className="text-xl text-primary">Post a contribution</h3>
+          <h3 className="text-xl text-neutral">Post a contribution</h3>
           <form className="form-control mt-6">
             <label htmlFor="contribution-create-category" className="label max-w-lg font-semibold">
-              <span className="label-text">Category</span>
+              <span className="label-text text-accent-content">Category</span>
             </label>
             <select
               id="contribution-create-category"
-              className="mb-4 select select-bordered w-full max-w-lg focus:select-primary"
+              className="mb-4 select select-bordered w-full max-w-lg focus:select-neutral"
               onChange={(e) => setCategory(parseInt(e.target.value))}
             >
               {contributionCategories.map((category, index) => (
@@ -84,22 +78,22 @@ export default function CreateContribution() {
               ))}
             </select>
             <label htmlFor="contribution-create-title" className="label font-semibold">
-              <span className="label-text">Title</span>
+              <span className="label-text text-accent-content">Title</span>
             </label>
             <input
               id="contribution-create-title"
-              className="mb-4 input input-bordered w-full max-w-lg focus:input-accent"
+              className="mb-4 input input-bordered w-full max-w-lg focus:input-neutral"
               onChange={(e) => setTitle(e.target.value)}
             />
             <label htmlFor="contribution-create-url" className="label font-semibold">
-              <span className="label-text">URL</span>
+              <span className="label-text text-accent-content">URL</span>
             </label>
             <input
               id="contribution-create-url"
-              className="input input-bordered w-full max-w-lg focus:input-accent mb-5"
+              className="input input-bordered w-full max-w-lg focus:input-neutral mb-5"
               onChange={(e) => setUrl(e.target.value)}
             />
-            <button className="btn btn-accent text-primary" onClick={(e) => handlePost(e)}>
+            <button className="btn btn-accent text-neutral" onClick={(e) => handlePost(e)}>
               Post
             </button>
           </form>

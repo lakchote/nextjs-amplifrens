@@ -1,19 +1,16 @@
 import { gql } from "@apollo/client";
 
 export const GET_CONTRIBUTIONS = gql`
-  query GetActiveContributions($first: Int!, $skip: Int!, $todayTimestamp: Int!, $tomorrowTimestamp: Int!) {
+  query GetActiveContributions($first: Int!, $skip: Int!) {
     contributions(
       first: $first
       skip: $skip
-      where: {
-        from_not: "0x000000000000000000000000000000000000dead"
-        timestamp_gte: $todayTimestamp
-        timestamp_lte: $tomorrowTimestamp
-      }
-      orderBy: votes
+      where: { from_not: "0x000000000000000000000000000000000000dead" }
+      orderBy: timestamp
       orderDirection: desc
     ) {
       from
+      fromStatus
       hasProfile
       title
       url
@@ -36,6 +33,7 @@ export const GET_TOP_CONTRIBUTIONS = gql`
       orderDirection: desc
     ) {
       from
+      fromStatus
       hasProfile
       title
       url
@@ -59,6 +57,7 @@ export const GET_USER_TOP_CONTRIBUTIONS = gql`
       orderDirection: desc
     ) {
       from
+      fromStatus
       hasProfile
       title
       url
@@ -75,14 +74,6 @@ export const GET_USER_TOP_CONTRIBUTIONS = gql`
 export const GET_USER_UPVOTED_CONTRIBUTIONS = gql`
   query UserUpvotedContributions($address: Bytes!) {
     contributionUpvoteds(where: { from: $address }) {
-      contributionId
-    }
-  }
-`;
-
-export const GET_USER_DOWNVOTED_CONTRIBUTIONS = gql`
-  query UserDownvotedContributions($address: Bytes!) {
-    contributionDownvoteds(where: { from: $address }) {
       contributionId
     }
   }
@@ -106,11 +97,10 @@ export const GET_SBT_COUNT = gql`
 
 export const GET_SBT_LEADERBOARD = gql`
   query GetSBTLeaderboardAddresses {
-    sbtleaderboards(orderBy: topContributionsCount, orderDirection: desc, first: 3) {
+    sbtleaderboards(orderBy: topContributionsCount, orderDirection: desc, first: 5) {
       id
       topContributionsCount
       username
-      status
     }
   }
 `;

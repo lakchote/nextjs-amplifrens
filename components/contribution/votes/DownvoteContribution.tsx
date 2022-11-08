@@ -1,7 +1,6 @@
-import { faThumbsDown } from "@fortawesome/free-solid-svg-icons";
+import { faHeart } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useAccount, useContractWrite, usePrepareContractWrite, useWaitForTransaction } from "wagmi";
-import { useVoteContext } from "../../../pages";
 import addressesJson from "../../../constants/addresses.json";
 import facadeAbi from "../../../constants/abi.json";
 import { useConnectModal } from "@rainbow-me/rainbowkit";
@@ -9,7 +8,6 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 export default function DownvoteContribution({ contributionId }: { contributionId: number }) {
-  const { downvoted } = useVoteContext();
   const [clicked, setClicked] = useState(false);
   const { config: downvoteConfig } = usePrepareContractWrite({
     addressOrName: addressesJson[process.env.NEXT_PUBLIC_CHAIN_ID as keyof typeof addressesJson].address,
@@ -44,15 +42,10 @@ export default function DownvoteContribution({ contributionId }: { contributionI
   };
 
   return (
-    <a
-      className={
-        downvoted.includes(contributionId)
-          ? "text-primary hover:cursor-not-allowed"
-          : "align-middle hover:text-accent hover:cursor-pointer"
-      }
+    <FontAwesomeIcon
+      className="hover:text-accent-content hover:cursor-pointer text-accent"
       onClick={() => handleVote()}
-    >
-      <FontAwesomeIcon icon={faThumbsDown} /> Dislike
-    </a>
+      icon={faHeart}
+    />
   );
 }

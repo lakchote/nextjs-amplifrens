@@ -3,18 +3,12 @@ export interface ContributionInterface {
   votes: number;
   category: number;
   timestamp: number;
+  fromStatus: number;
+  contributionId: number;
   title: string;
   url: string;
   username: string;
   from: string;
-  contributionId: number;
   hasProfile: boolean;
   bestContribution: boolean;
-}
-
-export interface ContributionVotesInterface {
-  id: number;
-  from: string;
-  contributionId: number;
-  timestamp: number;
 }

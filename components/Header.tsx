@@ -1,52 +1,91 @@
+import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
+import { useRef } from "react";
+import CreateContribution from "./contribution/modals/CreateContribution";
 import CustomConnectButton from "./CustomConnectButton";
+import { NavLink } from "./NavLink";
 
 export default function Header() {
+  const menuRef = useRef<HTMLDivElement | null>(null);
+
+  const openMenu = () => {
+    menuRef?.current?.classList.remove("opacity-0", "hidden");
+    menuRef?.current?.classList.add(
+      "w-screen",
+      "h-screen",
+      "opacity-95",
+      "flex",
+      "justify-center",
+      "items-center",
+      "bg-base-100"
+    );
+  };
+
+  const closeMenu = () => {
+    menuRef?.current?.classList.remove("w-screen", "h-screen", "opacity-95", "flex");
+    menuRef?.current?.classList.add("opacity-0", "hidden");
+  };
+
   return (
-    <nav className="navbar py-4 lg:py-8 container mx-auto">
-      <div className="navbar-start">
-        <div className="dropdown">
-          <label tabIndex={0} className="btn btn-ghost lg:hidden">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" />
-            </svg>
-          </label>
-          <ul tabIndex={0} className="menu dropdown-content p-2 bg-base-300 rounded-box w-52">
-            <li>
-              <Link href="/top-contributions">
-                <a className="px-2">Top Contributions</a>
-              </Link>
-            </li>
-            <li>
-              <Link href="/leaderboard">
-                <a className="px-2">Leaderboard</a>
-              </Link>
-            </li>
-          </ul>
-        </div>
-        <Image src="/logo.png" alt="" width={60} height={60} />
-        <Link href="/">
-          <a className="lg:text-3xl text-xl font-bold px-1 lg:px-2 text-primary">amplifrens</a>
-        </Link>
-      </div>
-      <div className="navbar-end lg:flex">
-        <div className="hidden lg:flex">
+    <>
+      <div ref={menuRef} className="z-1 hidden opacity-0 duration-700">
+        <a
+          className="fixed top-6 right-8 text-neutral hover:text-primary text-5xl font-semibold duration-300"
+          onClick={closeMenu}
+        >
+          &times;
+        </a>
+        <div className="flex flex-col text-white text-center text-xl font-light space-y-3">
+          <Link href="/">
+            <a className="px-2" onClick={closeMenu}>
+              Home
+            </a>
+          </Link>
           <Link href="/top-contributions">
-            <a className="px-2 text-md hover:text-primary">Top Contributions</a>
+            <a className="px-2" onClick={closeMenu}>
+              Explore
+            </a>
           </Link>
           <Link href="/leaderboard">
-            <a className="px-2 text-md hover:text-primary">Leaderboard</a>
+            <a className="px-2" onClick={closeMenu}>
+              Leaderboard
+            </a>
           </Link>
         </div>
-        <CustomConnectButton />
       </div>
-    </nav>
+      <nav className="navbar lg:my-3">
+        <div className="navbar-start">
+          <a className="lg:hidden mx-3" onClick={openMenu}>
+            <FontAwesomeIcon icon={faBars} size="lg" width={22} />
+          </a>
+          <div className="lg:space-x-4">
+            <div className="flex items-center lg:mx-32">
+              <Image src="/images/logo.svg" width={40} height={40} alt="AmpliFrens logo" className="block" />
+              <Link href="/">
+                <a className="font-semibold text-sm lg:text-lg tracking-wider text-white ml-2 lg:ml-4">AMPLIFRENS</a>
+              </Link>
+            </div>
+          </div>
+        </div>
+        <div className="navbar-end lg:px-5 space-x-8">
+          <NavLink href="/">
+            <a className="hidden lg:inline-block text-neutral hover:border-b-2 hover:border-b-accent">Home</a>
+          </NavLink>
+          <NavLink href="/top-contributions">
+            <a className="hidden lg:inline-block text-neutral hover:border-b-2 hover:border-b-accent">Explore</a>
+          </NavLink>
+          <NavLink href="/leaderboard">
+            <a className="hidden lg:inline-block text-neutral hover:border-b-2 hover:border-b-accent">Leaderboard</a>
+          </NavLink>
+          <div className="hidden lg:block lg:mx-6 lg:border-r lg:border-r-gray-600">&nbsp;</div>
+          <div className="flex space-x-4">
+            <CreateContribution />
+            <CustomConnectButton />
+          </div>
+        </div>
+      </nav>
+    </>
   );
 }

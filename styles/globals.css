@@ -1,3 +1,28 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+a[menu-active="true"] {
+  @apply font-semibold;
+}
+
+.container {
+  @apply min-h-screen;
+}
+
+.bg-cover {
+  background: url("/images/bg-cover.png") no-repeat center center fixed;
+  background-size: cover;
+}
+
+.bg-contribution-title {
+  background: url("/images/bg-contribution-title.jpg") no-repeat bottom scroll;
+  background-size: cover;
+}
+
+.leaderboard-container {
+  min-height: 450px;
+  height: 100vh;
+  margin: 0;
+  color: #fff;
+}

@@ -1,14 +1,16 @@
-import { faStar, faThumbsUp } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ContributionInterface } from "../../interfaces/contribution";
 import { useAccount } from "wagmi";
+import Avatar from "boring-avatars";
+import TimeAgo from "react-timeago";
 import UpvoteContribution from "./votes/UpvoteContribution";
 import DownvoteContribution from "./votes/DownvoteContribution";
 import UpdateContribution from "./modals/UpdateContribution";
 import DeleteContribution from "./modals/DeleteContribution";
 import contributionCategories from "../../constants/categoryMapping";
+import statusesMapping from "../../constants/statusMapping";
 import truncateStr from "../../utils/truncate";
 import Link from "next/link";
+import { useVoteContext } from "../../pages";
 
 export default function Contribution({
   contribution,
@@ -18,55 +20,67 @@ export default function Contribution({
   hasVoteActions: boolean;
 }) {
   const { address } = useAccount();
-  const date = new Date(contribution.timestamp * 1000).toLocaleString("default", { dateStyle: "short" });
-
+  const { upvoted } = useVoteContext();
+  const handleUpdateDelete = () => {
+    if (hasVoteActions && contribution.from.toUpperCase() === address?.toUpperCase()) {
+      return (
+        <>
+          <div className="divider mt-4"></div>
+          <div className="flex justify-evenly mb-4">
+            <>
+              <UpdateContribution contributionId={contribution.contributionId} />
+              <DeleteContribution contributionId={contribution.contributionId} />
+            </>
+          </div>
+        </>
+      );
+    }
+  };
   return (
-    <div className="lg:w-full mb-16">
-      <div className="lg:w-5/12 mx-2 mt-6 p-8 lg:mt-8 lg:p-8 rounded-lg lg:mx-auto border border-accent shadow-lg shadow-accent">
-        <div className="flex items-center">
-          <div className="badge sm:badge-sm md:badge-md lg:badge-lg badge-default p-4 mr-3 w-20">
-            {contributionCategories[contribution.category]}
-          </div>
-          <div className="font-bold lg:text-lg">
-            <a className="text-primary hover:text-accent" href={contribution.url}>
-              {contribution.title}
-            </a>
-            <div className="text-xs pt-1">
-              <Link
-                href={`/profile/${encodeURIComponent(
-                  contribution.hasProfile ? contribution.username : contribution.from
-                )}`}
-              >
-                <a className="font-extralight text-secondary hover:text-accent">
-                  by {contribution.hasProfile ? contribution.username : truncateStr(contribution.from, 11)}
-                </a>
-              </Link>
-              <span className="ml-10 font-extralight">{contribution.bestContribution && date}</span>
-            </div>
+    <div className="lg:flex lg:mb-3 lg:flex-column lg:items-start lg:justify-center text-neutral">
+      <div className="border-y lg:border border-gray-800 lg:rounded-lg bg-base-100">
+        <div className="lg:pl-4 lg:py-3 pl-2 flex items-center">
+          <Avatar
+            size={25}
+            name={contribution?.username ?? contribution.from}
+            variant="beam"
+            colors={["#4610AD", "#5F74EA", "#491F98", "#35068C", "#491F98", "#D1E0FF"]}
+          />
+          <div className="ml-3 py-3 font-semibold lowercase">
+            <Link href={`/profile/${encodeURIComponent(contribution.from)}`}>
+              <a className="cursor-pointer bg-clip-text bg-gradient-to-r from-neutral to-accent-content text-transparent">
+                {contribution.hasProfile ? contribution.username : truncateStr(contribution.from, 11)}
+              </a>
+            </Link>
+            <span className="ml-2 badge badge-secondary">{statusesMapping[contribution.fromStatus]}</span>
           </div>
         </div>
-        <div className="text-sm mt-4 px-6">
-          <FontAwesomeIcon icon={faThumbsUp} className={contribution.votes > 0 ? "text-accent" : ""} />{" "}
-          {contribution.votes}
+        <div className="min-h-[343px] lg:min-w-[500px] lg:min-h-[500px] flex items-center justify-center font-semibold bg-contribution-title">
+          <a
+            className="text-neutral rounded-full p-2 lg:p-3 border-none hover:bg-accent-focus text-center font-medium bg-accent"
+            href={contribution.url}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <span className="text-accent-content inline-flex mr-1">
+              ({contributionCategories[contribution.category]})
+            </span>
+            {contribution.title}
+          </a>
         </div>
-        {hasVoteActions && (
-          <>
-            <div className="divider"></div>
-            <div className="flex justify-around text-sm">
-              {!address || contribution.from.toUpperCase() !== address.toUpperCase() ? (
-                <>
-                  <UpvoteContribution contributionId={contribution.contributionId} />
-                  <DownvoteContribution contributionId={contribution.contributionId} />
-                </>
-              ) : (
-                <>
-                  <UpdateContribution contributionId={contribution.contributionId} />
-                  <DeleteContribution contributionId={contribution.contributionId} />
-                </>
-              )}
-            </div>
-          </>
-        )}
+        <div className="pt-4 pb-2 pl-4">
+          {!upvoted.includes(contribution.contributionId) ? (
+            <UpvoteContribution contribution={contribution} />
+          ) : (
+            <DownvoteContribution contributionId={contribution.contributionId} />
+          )}
+        </div>
+        <span className="text-sm pl-4 font-semibold">{contribution.votes} likes</span>
+
+        <div className="pb-4 pl-4 text-xs pt-1 uppercase text-neutral-focus">
+          <TimeAgo date={contribution.timestamp * 1000} />
+        </div>
+        {handleUpdateDelete()}
       </div>
     </div>
   );

@@ -12,6 +12,7 @@ import "@rainbow-me/rainbowkit/styles.css";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 import "react-toastify/dist/ReactToastify.min.css";
 import { createContext, Dispatch, SetStateAction, useContext, useState } from "react";
+import { offsetLimitPagination } from "@apollo/client/utilities";
 
 config.autoAddCss = false;
 
@@ -20,12 +21,10 @@ const graphqlClient = new ApolloClient({
     typePolicies: {
       Query: {
         fields: {
-          contributionDownvoteds: {
-            merge: false,
-          },
           contributionUpvoteds: {
             merge: false,
           },
+          contributions: offsetLimitPagination(),
         },
       },
     },
@@ -34,9 +33,9 @@ const graphqlClient = new ApolloClient({
 });
 
 const { chains, provider } = configureChains(
-  [chain.hardhat, chain.polygon, chain.polygonMumbai],
+  [chain.polygon, chain.polygonMumbai],
   [
-    infuraProvider({ apiKey: process.env.INFURA_API_KEY }),
+    infuraProvider({ apiKey: process.env.INFURA_API_KEY, priority: 0 }),
     jsonRpcProvider({
       rpc: () => ({ http: process.env.RPC_NODE_URL! }),
     }),
@@ -67,7 +66,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <WagmiConfig client={wagmiClient}>
       <ApolloProvider client={graphqlClient}>
-        <RainbowKitProvider chains={chains} theme={darkTheme({ accentColor: "#5f43b2" })}>
+        <RainbowKitProvider modalSize="compact" chains={chains} theme={darkTheme({ accentColor: "#3671E9" })}>
           <ProfileContext.Provider value={{ profileUpdated: profileUpdated, setProfileUsername }}>
             <Header />
             <ToastContainer theme="dark" />

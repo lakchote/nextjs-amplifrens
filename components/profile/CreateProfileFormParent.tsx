@@ -11,8 +11,8 @@ export default function CreateProfileFormParent() {
     <>
       <div className="flex justify-center">
         <ul className="steps steps-vertical lg:steps-horizontal mt-10">
-          <li className={`step ${showParentForm && "step-neutral"}`}>General</li>
-          <li className={`step ${!showParentForm && "step-neutral"}`}>Social</li>
+          <li className={`step ${showParentForm && "step-accent text-neutral"}`}>General</li>
+          <li className={`step ${!showParentForm && "step-accent text-neutral"}`}>Social</li>
         </ul>
       </div>
       <div className="flex justify-center">
@@ -20,34 +20,34 @@ export default function CreateProfileFormParent() {
           {showParentForm && (
             <>
               <label htmlFor="profile-create-username" className="label font-semibold">
-                <span className="label-text">
+                <span className="label-text text-neutral">
                   Username <span className="text-xs">(required)</span>
                 </span>
               </label>
               <input
                 id="profile-create-username"
                 placeholder={username}
-                className="mb-4 input input-bordered w-full max-w-lg focus:input-accent"
+                className="mb-4 input input-bordered w-full max-w-lg focus:input-neutral"
                 onChange={(e) => setUsername(e.target.value)}
               />
               <label htmlFor="profile-create-website" className="label font-semibold">
-                <span className="label-text">Website</span>
+                <span className="label-text text-neutral">Website</span>
               </label>
               <input
                 id="profile-create-website"
                 placeholder={websiteUrl}
-                className="mb-4 input input-bordered w-full max-w-lg focus:input-accent"
+                className="mb-4 input input-bordered w-full max-w-lg focus:input-neutral"
                 onChange={(e) => setWebsiteUrl(e.target.value)}
               />
               <label htmlFor="profile-create-email" className="label font-semibold">
-                <span className="label-text">Email</span>
+                <span className="label-text text-neutral">Email</span>
               </label>
               <input
                 id="profile-create-email"
                 placeholder={email}
-                className="mb-4 input input-bordered w-full max-w-lg focus:input-accent"
+                className="mb-4 input input-bordered w-full max-w-lg focus:input-neutral"
                 onChange={(e) => setEmail(e.target.value)}
-              />{" "}
+              />
             </>
           )}
           <CreateProfileFormChild
