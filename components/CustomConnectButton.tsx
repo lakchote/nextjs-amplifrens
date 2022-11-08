@@ -79,10 +79,10 @@ export default function CustomConnectButton() {
                       !dropdownOpen ? "hidden" : ""
                     } dropdown-content menu p-2 shadow bg-accent text-neutral rounded-box w-52`}
                   >
-                    {profileUpdated ?? hasUserProfile ? (
+                    {profileUpdated ?? (hasUserProfile && address) ? (
                       <>
                         <li>
-                          <Link href={`/profile/${encodeURIComponent(profileUpdated ?? profileInfo?.username)}`}>
+                          <Link href={`/profile/${encodeURIComponent(address!)}`}>
                             <a className="hover:bg-accent-focus" onClick={() => setDropdownOpen(false)}>
                               <FontAwesomeIcon icon={faEye} />
                               Show profile
