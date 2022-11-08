@@ -4,6 +4,7 @@ import Link from "next/link";
 import { NextPage } from "next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrophy } from "@fortawesome/free-solid-svg-icons";
+import truncateStr from "../utils/truncate";
 
 const Leaderboard: NextPage = () => {
   const {
@@ -59,11 +60,11 @@ const Leaderboard: NextPage = () => {
                           </Link>
                         </>
                       ) : (
-                        <>{address.id}</>
+                        <>{truncateStr(address.id, 11)}</>
                       )}
                       <div className="flex w-full justify-end pr-4">
                         <Link href={`/top-contributions/${encodeURIComponent(address.id)}`}>
-                          <a className="">{address.topContributionsCount}</a>
+                          <a className="font-bold">{address.topContributionsCount}</a>
                         </Link>
                       </div>
                     </div>
