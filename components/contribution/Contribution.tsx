@@ -47,11 +47,7 @@ export default function Contribution({
             colors={["#4610AD", "#5F74EA", "#491F98", "#35068C", "#491F98", "#D1E0FF"]}
           />
           <div className="ml-3 py-3 font-semibold lowercase">
-            <Link
-              href={`/profile/${encodeURIComponent(
-                contribution.hasProfile ? contribution.username : contribution.from
-              )}`}
-            >
+            <Link href={`/profile/${encodeURIComponent(contribution.from)}`}>
               <a className="cursor-pointer bg-clip-text bg-gradient-to-r from-neutral to-accent-content text-transparent">
                 {contribution.hasProfile ? contribution.username : truncateStr(contribution.from, 11)}
               </a>

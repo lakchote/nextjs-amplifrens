@@ -33,9 +33,9 @@ const graphqlClient = new ApolloClient({
 });
 
 const { chains, provider } = configureChains(
-  [chain.hardhat, chain.polygon, chain.polygonMumbai],
+  [chain.polygon, chain.polygonMumbai],
   [
-    infuraProvider({ apiKey: process.env.INFURA_API_KEY }),
+    infuraProvider({ apiKey: process.env.INFURA_API_KEY, priority: 0 }),
     jsonRpcProvider({
       rpc: () => ({ http: process.env.RPC_NODE_URL! }),
     }),
