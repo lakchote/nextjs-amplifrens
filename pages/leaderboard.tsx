@@ -55,7 +55,7 @@ const Leaderboard: NextPage = () => {
                       {handleDisplayTopLeaderboard(index)}
                       {address.username ? (
                         <>
-                          <Link href={`/profile/${encodeURIComponent(address.username)}`}>
+                          <Link href={`/profile/${encodeURIComponent(address.id)}`}>
                             <a className="text-neutral text-center">{address.username}</a>
                           </Link>
                         </>
