@@ -3,7 +3,7 @@ import CreateProfileFormParent from "../../components/profile/CreateProfileFormP
 
 const CreateProfile: NextPage = () => {
   return (
-    <main className="container p-10 bg-cover">
+    <main className="container p-10 bg-cover lg:max-w-full">
       <div className="text-center">
         <h2 className="text-2xl text-neutral p-2 m-1">Create a profile</h2>
         <p className="mt-2 text-neutral">

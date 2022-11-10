@@ -38,7 +38,7 @@ const Leaderboard: NextPage = () => {
       ) : leaderboardAddresses?.sbtleaderboards?.length === 0 ? (
         <div className="pt-10 flex justify-center"> No top contributions have been minted yet. Wait for tomorrow !</div>
       ) : (
-        <main className="container px-2 pt-9 lg:pt-10 leaderboard-container bg-cover">
+        <main className="container px-2 pt-9 lg:pt-10 leaderboard-container bg-cover lg:max-w-full">
           <div className="flex w-full lg:w-4/12 mx-auto border rounded-sm border-gray-800 bg-base-100 leaderboard flex-col justify-center">
             <div className="p-5 flex items-center bg-base-100 text-xl tracking-wider border-b border-gray-800">
               <FontAwesomeIcon icon={faTrophy} className="text-yellow-400 mr-2" />

@@ -34,16 +34,16 @@ const UserTopContributions: NextPage = () => {
   return (
     <>
       {networkStatus === NetworkStatus.loading ? (
-        <div className="container pt-9 lg:pt-10 text-center text-neutral">Loading...</div>
+        <div className="container pt-9 lg:pt-10 text-center text-neutral lg:max-w-full">Loading...</div>
       ) : errorTopContributions ? (
-        <div className="container pt-9 lg:pt-10 text-center text-neutral">
+        <div className="container pt-9 lg:pt-10 text-center text-neutral lg:max-w-full">
           There was an error.
           <br /> Please reach out on Discord or Twitter.
         </div>
       ) : activeTopContributions?.contributions?.length === 0 ? (
         <div className="pt-10 flex justify-center"> No top contributions for address {address}.</div>
       ) : (
-        <main className="container pt-9 lg:pt-10 bg-cover">
+        <main className="container pt-9 lg:pt-10 bg-cover lg:max-w-full">
           <div className="flex justify-center pb-4">
             <h2 className="text-xl lg:text-2xl text-neutral">
               <FontAwesomeIcon icon={faTrophy} className="text-yellow-400 mr-2" />

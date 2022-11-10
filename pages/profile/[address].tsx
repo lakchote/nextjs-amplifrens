@@ -40,7 +40,7 @@ const ShowProfile: NextPage = () => {
   });
 
   return (
-    <main className="container pt-6 px-2 lg:p-10 bg-cover">
+    <main className="container pt-6 px-2 lg:p-10 bg-cover lg:max-w-full">
       <div className="flex justify-center">
         <div className="border flex-col border-gray-800 rounded-lg bg-base-100 w-full lg:w-1/2 pb-10">
           <div className="items-center text-center">
