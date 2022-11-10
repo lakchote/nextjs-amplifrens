@@ -20,7 +20,7 @@ const Leaderboard: NextPage = () => {
     return index === 0 ? (
       <span className="btn btn-xs border-none bg-yellow-400 btn-circle mr-4">{index + 1}</span>
     ) : index === 1 ? (
-      <span className="btn btn-xs border-none bg-gray-400 btn-circle mr-4">{index + 1}</span>
+      <span className="btn btn-xs border-none text-neutral bg-gray-400 btn-circle mr-4">{index + 1}</span>
     ) : (
       <span className="btn btn-xs border-none text-neutral bg-amber-700 btn-circle mr-4">{index + 1}</span>
     );
