@@ -15,14 +15,14 @@ const Leaderboard: NextPage = () => {
 
   const handleDisplayTopLeaderboard = (index: number) => {
     if (index > 2) {
-      return <span className="btn btn-xs border-none btn-accent btn-circle mr-4">{index + 1}</span>;
+      return <span className="btn btn-xs border-none btn-circle mr-4">{index + 1}</span>;
     }
     return index === 0 ? (
       <span className="btn btn-xs border-none bg-yellow-400 btn-circle mr-4">{index + 1}</span>
     ) : index === 1 ? (
-      <span className="btn btn-xs border-none text-neutral bg-gray-400 btn-circle mr-4">{index + 1}</span>
+      <span className="btn btn-xs border-none text-neutral bg-gray-600 btn-circle mr-4">{index + 1}</span>
     ) : (
-      <span className="btn btn-xs border-none text-neutral bg-amber-700 btn-circle mr-4">{index + 1}</span>
+      <span className="btn btn-xs border-none text-neutral bg-amber-900 btn-circle mr-4">{index + 1}</span>
     );
   };
 
